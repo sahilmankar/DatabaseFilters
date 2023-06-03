@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddCors();
+builder.Services.AddMemoryCache();
 builder.Services.AddControllers();
 builder.Services.AddTransient<IFarmerRepository,FarmerRepository>();
 builder.Services.AddTransient<IFarmerService,FarmerService>();
