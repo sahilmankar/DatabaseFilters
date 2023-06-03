@@ -106,7 +106,6 @@ public static class QueryableExtensions
         {
             query = query.OrderBy($"{sortBy} {(sortAscending ? "ascending" : "descending")}");
         }
-
         return query;
     }
 }

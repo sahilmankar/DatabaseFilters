@@ -2,7 +2,7 @@ namespace FarmersAPI.Extensions;
 
 public class PagedList<T> : List<T>
 {
-    private const int pageSize = 10;
+    private const int pageSize = 2;
     public int CurrentPage { get; private set; }
     public int TotalPages { get; private set; }
     public int TotalCount { get; private set; }
@@ -18,17 +18,19 @@ public class PagedList<T> : List<T>
         AddRange(items);
     }
 
-    public static PagedList<T> ToPagedList(IQueryable<T> source, int pageNumber = 1)
+    public static PagedList<T> ToPagedList(
+        IQueryable<T> query,
+        int pageNumber = 1
+    )
     {
-        var count = source.Count();
+        var count = query.Count();
 
         if (pageNumber <= 0)
         {
             pageNumber = 1;
         }
-    
-        var items = source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
 
+        var items = query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
         return new PagedList<T>(items, count, pageNumber);
     }
 }

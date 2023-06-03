@@ -14,5 +14,4 @@ public interface IFarmerRepository
     Task<List<FarmerCollection>> GetFarmerCollectionByCrop(int farmerId, int cropId);
     public PagedList<FarmerCollection> FilterRecords(int farmerId,FilterRequest request,int pageNumber);
 
-
 }

@@ -66,7 +66,10 @@ namespace FarmersAPI.Controllers
         public List<FarmerCollection> FilterRecords(
             int id,
             [FromBody] FilterRequest request,
-            [FromQuery] int pageNumber
+            [FromQuery] int pageNumber,
+            [FromQuery] string? lastItem
+
+
         )
         {
             var records = _srv.FilterRecords(id, request, pageNumber);

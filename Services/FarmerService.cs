@@ -65,15 +65,15 @@ public class FarmerService : IFarmerService
         PagedList<FarmerCollection> collections = null;
         String cacheKey = farmerId + "_" + request.ToString() + "_" + pageNumber;
          
-        bool isExist = _cache.TryGetValue(cacheKey, out collections);
-        if (!isExist)
+        // bool isExist = _cache.TryGetValue(cacheKey, out collections);
+        // if (!isExist)
         {
             collections = _repo.FilterRecords(farmerId, request, pageNumber);
-            var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(
-                TimeSpan.FromSeconds(30)
-            );
+            // var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(
+            //     TimeSpan.FromSeconds(30)
+            // );
 
-            _cache.Set(cacheKey, collections, cacheEntryOptions);
+            // _cache.Set(cacheKey, collections, cacheEntryOptions);
         }
 
         System.Console.WriteLine(cacheKey);

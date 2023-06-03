@@ -27,7 +27,11 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseCors(x => x.AllowAnyOrigin()
                     .AllowAnyMethod()
-                    .AllowAnyHeader());
+                    .AllowAnyHeader()
+                    .WithHeaders()
+                    .WithExposedHeaders(
+                       new string[] {"X-Pagination"}
+                    ));
 app.UseAuthorization();
 
 app.MapControllers();
