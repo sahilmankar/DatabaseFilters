@@ -18,16 +18,17 @@ public class PagedList<T> : List<T>
         AddRange(items);
     }
 
-    public static PagedList<T> ToPagedList(
-        IQueryable<T> query,
-        int pageNumber = 1
-    )
+    public static PagedList<T> ToPagedList(IQueryable<T> query, int pageNumber = 1)
     {
         var count = query.Count();
-
+        var totalPages = (int)Math.Ceiling(count / (double)pageSize);
+    
         if (pageNumber <= 0)
         {
             pageNumber = 1;
+        }
+        if(pageNumber> totalPages && totalPages!=0){
+            pageNumber=totalPages;
         }
 
         var items = query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();

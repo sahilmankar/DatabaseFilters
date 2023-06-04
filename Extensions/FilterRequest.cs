@@ -52,7 +52,7 @@ public class FilterRequest
     public class EqualFilter
     {
         public string PropertyName { get; set; }
-        public string? PropertyValue { get; set; }
+        public List<string>? PropertyValue { get; set; }
         public override string ToString()
     {
         return $"{{ PropertyName: {PropertyName}, PropertyValue: {PropertyValue} }}";

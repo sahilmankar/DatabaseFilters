@@ -23,14 +23,38 @@ public static class QueryableExtensions
             foreach (var property in equalFilters)
             {
                 string propertyName = property.PropertyName;
-                string propertyValue = property.PropertyValue;
-                if (!string.IsNullOrEmpty(propertyValue))
-                    query = query.Where($"{propertyName} = @0", propertyValue);
+                var propertyValues = property.PropertyValue;
+                foreach(var pvalue in propertyValues)
+                if (!string.IsNullOrEmpty(pvalue)){
+                    query = query.Where($"{propertyName} = @0 ", pvalue);
+            }
             }
         }
 
         return query;
     }
+    // {
+    //     if (equalFilters != null && equalFilters.Any())
+    //     {
+    //         foreach (var property in equalFilters)
+    //         {
+    //             string propertyName = property.PropertyName;
+    //             var propertyValues = property.PropertyValue;
+
+    //             if (propertyValues != null && propertyValues.Any())
+    //             {
+    //                 var valuePredicates = propertyValues
+    //                     .Where(value => !string.IsNullOrEmpty(value))
+    //                     .Select(value => $"{propertyName} = {value}");
+
+    //                 var combinedPredicate = string.Join(" OR ", valuePredicates);
+    //                 query = query.Where(combinedPredicate);
+    //             }
+    //         }
+    //     }
+
+    //     return query;
+    // }
 
     public static IQueryable<T> ApplyDateRangeFilter<T>(
         this IQueryable<T> query,
