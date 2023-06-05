@@ -68,8 +68,6 @@ namespace FarmersAPI.Controllers
             [FromBody] FilterRequest request,
             [FromQuery] int pageNumber,
             [FromQuery] string? lastItem
-
-
         )
         {
             var records = _srv.FilterRecords(id, request, pageNumber);

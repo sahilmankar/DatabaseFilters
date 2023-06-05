@@ -49,26 +49,29 @@ public class FilterRequest
     }
 }
 
-    public class EqualFilter
+public class EqualFilter
+{
+    public string PropertyName { get; set; }
+    public List<string>? PropertyValues { get; set; }
+
+    public override string ToString()
     {
-        public string PropertyName { get; set; }
-        public List<string>? PropertyValue { get; set; }
-        public override string ToString()
-    {
-        return $"{{ PropertyName: {PropertyName}, PropertyValue: {PropertyValue} }}";
+        string propertyValueString =
+            PropertyValues != null ? string.Join(", ", PropertyValues) : "null";
+        return $"PropertyName: {PropertyName}, PropertyValue: {propertyValueString}";
     }
-    }
+}
 
 public class RangeFilter
 {
     public string PropertyName { get; set; }
     public int MinValue { get; set; }
     public int MaxValue { get; set; }
-      public override string ToString()
+
+    public override string ToString()
     {
         return $"{{ PropertyName: {PropertyName}, MinValue: {MinValue}, MaxValue: {MaxValue} }}";
     }
-    
 }
 
 public class DateRangeFilter
@@ -76,7 +79,8 @@ public class DateRangeFilter
     public string PropertyName { get; set; }
     public string? FromDate { get; set; }
     public string? ToDate { get; set; }
-      public override string ToString()
+
+    public override string ToString()
     {
         return $"{{ PropertyName: {PropertyName}, FromDate: {FromDate}, ToDate: {ToDate} }}";
     }

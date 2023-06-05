@@ -1,4 +1,5 @@
 using System.Linq.Dynamic.Core;
+using System.Text;
 
 namespace FarmersAPI.Extensions;
 
@@ -13,48 +14,39 @@ public static class QueryableExtensions
         return query;
     }
 
-    public static IQueryable<T> ApplyEqualFilters<T>(
-        this IQueryable<T> query,
-        List<EqualFilter> equalFilters
-    )
+
+public static IQueryable<T> ApplyEqualFilters<T>(
+    this IQueryable<T> query,
+    List<EqualFilter> equalFilters
+)
+{
+    if (equalFilters != null && equalFilters.Any())
     {
-        if (equalFilters != null && equalFilters.Any())
+        foreach (var property in equalFilters)
         {
-            foreach (var property in equalFilters)
+            var stringBuilder = new StringBuilder();
+            string propertyName = property.PropertyName;
+            var propertyValues = property.PropertyValues;
+            foreach (string pvalue in propertyValues)
             {
-                string propertyName = property.PropertyName;
-                var propertyValues = property.PropertyValue;
-                foreach(var pvalue in propertyValues)
-                if (!string.IsNullOrEmpty(pvalue)){
-                    query = query.Where($"{propertyName} = @0 ", pvalue);
+                if (!string.IsNullOrEmpty(pvalue))
+                {
+                    stringBuilder.Append($"{propertyName} = \"{pvalue}\" ");
+                    stringBuilder.Append(" OR ");
+                }
             }
+
+            if (stringBuilder.Length > 0)
+            {
+                stringBuilder.Length -= 4; // Remove the trailing " OR "
+                string filterString = stringBuilder.ToString();
+                query = query.Where(filterString);
             }
         }
-
-        return query;
     }
-    // {
-    //     if (equalFilters != null && equalFilters.Any())
-    //     {
-    //         foreach (var property in equalFilters)
-    //         {
-    //             string propertyName = property.PropertyName;
-    //             var propertyValues = property.PropertyValue;
 
-    //             if (propertyValues != null && propertyValues.Any())
-    //             {
-    //                 var valuePredicates = propertyValues
-    //                     .Where(value => !string.IsNullOrEmpty(value))
-    //                     .Select(value => $"{propertyName} = {value}");
-
-    //                 var combinedPredicate = string.Join(" OR ", valuePredicates);
-    //                 query = query.Where(combinedPredicate);
-    //             }
-    //         }
-    //     }
-
-    //     return query;
-    // }
+    return query;
+}
 
     public static IQueryable<T> ApplyDateRangeFilter<T>(
         this IQueryable<T> query,
