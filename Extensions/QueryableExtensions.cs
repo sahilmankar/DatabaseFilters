@@ -14,43 +14,45 @@ public static class QueryableExtensions
         return query;
     }
 
-
-public static IQueryable<T> ApplyEqualFilters<T>(
-    this IQueryable<T> query,
-    List<EqualFilter> equalFilters
-)
-{
-    if (equalFilters != null && equalFilters.Any())
+    public static IQueryable<T> ApplyEqualFilters<T>(
+        this IQueryable<T> query,
+        List<EqualFilter>? equalFilters
+    )
     {
-        foreach (var property in equalFilters)
+        if (equalFilters != null && equalFilters.Any())
         {
-            var stringBuilder = new StringBuilder();
-            string propertyName = property.PropertyName;
-            var propertyValues = property.PropertyValues;
-            foreach (string pvalue in propertyValues)
+            foreach (var property in equalFilters)
             {
-                if (!string.IsNullOrEmpty(pvalue))
+                var stringBuilder = new StringBuilder();
+                string propertyName = property.PropertyName;
+                var propertyValues = property.PropertyValues;
+                if (propertyValues != null)
                 {
-                    stringBuilder.Append($"{propertyName} = \"{pvalue}\" ");
-                    stringBuilder.Append(" OR ");
+                    foreach (string pvalue in propertyValues)
+                    {
+                        if (!string.IsNullOrEmpty(pvalue))
+                        {
+                            stringBuilder.Append($"{propertyName} = \"{pvalue}\" ");
+                            stringBuilder.Append(" OR ");
+                        }
+                    }
+
+                    if (stringBuilder.Length > 0)
+                    {
+                        stringBuilder.Length -= 4; // Remove the trailing " OR "
+                        string filterString = stringBuilder.ToString();
+                        query = query.Where(filterString);
+                    }
                 }
             }
-
-            if (stringBuilder.Length > 0)
-            {
-                stringBuilder.Length -= 4; // Remove the trailing " OR "
-                string filterString = stringBuilder.ToString();
-                query = query.Where(filterString);
-            }
         }
-    }
 
-    return query;
-}
+        return query;
+    }
 
     public static IQueryable<T> ApplyDateRangeFilter<T>(
         this IQueryable<T> query,
-        List<DateRangeFilter> dateRangeFilters
+        List<DateRangeFilter>? dateRangeFilters
     )
     {
         if (dateRangeFilters != null && dateRangeFilters.Any())
@@ -80,7 +82,7 @@ public static IQueryable<T> ApplyEqualFilters<T>(
 
     public static IQueryable<T> ApplyPropertyRangesFilter<T>(
         this IQueryable<T> query,
-        List<RangeFilter> rangeFilters
+        List<RangeFilter>? rangeFilters
     )
     {
         if (rangeFilters != null && rangeFilters.Any())
@@ -114,7 +116,7 @@ public static IQueryable<T> ApplyEqualFilters<T>(
 
     public static IQueryable<T> ApplySorting<T>(
         this IQueryable<T> query,
-        string sortBy,
+        string? sortBy,
         bool sortAscending
     )
     {
