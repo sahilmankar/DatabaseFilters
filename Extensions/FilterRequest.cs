@@ -52,7 +52,13 @@ public class FilterRequest
 public class EqualFilter
 {
     public string PropertyName { get; set; }
+
     public List<string>? PropertyValues { get; set; }
+
+    public EqualFilter()
+    {
+        PropertyName = string.Empty;
+    }
 
     public override string ToString()
     {
@@ -68,6 +74,11 @@ public class RangeFilter
     public int MinValue { get; set; }
     public int MaxValue { get; set; }
 
+    public RangeFilter()
+    {
+        PropertyName = string.Empty;
+    }
+
     public override string ToString()
     {
         return $"{{ PropertyName: {PropertyName}, MinValue: {MinValue}, MaxValue: {MaxValue} }}";
@@ -76,6 +87,11 @@ public class RangeFilter
 
 public class DateRangeFilter
 {
+    public DateRangeFilter()
+    {
+        PropertyName = string.Empty;
+    }
+
     public string PropertyName { get; set; }
     public string? FromDate { get; set; }
     public string? ToDate { get; set; }
