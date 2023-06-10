@@ -1,4 +1,4 @@
-using System.Text;
+
 using FarmersAPI.Extensions;
 using FarmersAPI.Models;
 using FarmersAPI.Repositories.Interfaces;
@@ -35,7 +35,7 @@ public class FarmerService : IFarmerService
 
     public async Task<List<FarmerCollectionPerMonth>> GetFarmerCollectionAmountByMonth(int farmerId)
     {
-        return await _repo.GetFarmerCollectionAmountByMonth(farmerId);
+     return await _repo.GetFarmerCollectionAmountByMonth(farmerId);
     }
 
     public async Task<List<FarmerCollectionByCrop>> GetFarmerCollectionAmountByCrop(int farmerId)
@@ -48,7 +48,7 @@ public class FarmerService : IFarmerService
         DateFilter dateFilter
     )
     {
-        return await _repo.GetFarmerCollectionsBetweenDates(farmerId, dateFilter);
+     return await _repo.GetFarmerCollectionsBetweenDates(farmerId, dateFilter);
     }
 
     public async Task<List<FarmerCollection>> GetFarmerCollectionByCrop(int farmerId, int cropId)
@@ -56,27 +56,23 @@ public class FarmerService : IFarmerService
         return await _repo.GetFarmerCollectionByCrop(farmerId, cropId);
     }
 
-    public PagedList<FarmerCollection> FilterRecords(
+    public PagedList<FarmerCollectionDTO>? FilterRecords(
         int farmerId,
         FilterRequest request,
         int pageNumber
     )
     {
-        PagedList<FarmerCollection> collections = null;
         String cacheKey = farmerId + "_" + request.ToString() + "_" + pageNumber;
-         
-        // bool isExist = _cache.TryGetValue(cacheKey, out collections);
-        // if (!isExist)
-        {
-            collections = _repo.FilterRecords(farmerId, request, pageNumber);
-            // var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(
-            //     TimeSpan.FromSeconds(30)
-            // );
-
-            // _cache.Set(cacheKey, collections, cacheEntryOptions);
-        }
-
-        System.Console.WriteLine(cacheKey);
-        return collections;
+        Console.WriteLine(cacheKey);
+        return _cache.GetOrCreate(
+            cacheKey,
+            entry =>
+            {
+                entry.SetAbsoluteExpiration(TimeSpan.FromSeconds(30));
+                System.Console.WriteLine("--> repo hit");
+                var collecrions= _repo.FilterRecords(farmerId, request, pageNumber);
+                return collecrions ;
+            }
+        );
     }
 }
