@@ -3,7 +3,7 @@ namespace FarmersAPI.Models;
 public class FarmerCollectionDTO
 {
     public int CollectionId { get; set; }
-
+    public string? Crop { get; set; }
     public string? ContainerType { get; set; }
 
     public int Quantity { get; set; }
