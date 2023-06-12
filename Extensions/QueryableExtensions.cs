@@ -59,16 +59,14 @@ public static class QueryableExtensions
         {
             foreach (var filterOptions in dateRangeFilters)
             {
-                DateTime fromDate;
-                bool hasFromDate = DateTime.TryParse(filterOptions.FromDate, out fromDate);
+                bool hasFromDate = DateTime.TryParse(filterOptions.FromDate, out DateTime fromDate);
 
                 if (hasFromDate)
                 {
                     query = query.Where($"{filterOptions.PropertyName} >= @0", fromDate);
                 }
 
-                DateTime toDate;
-                bool hasToDate = DateTime.TryParse(filterOptions.ToDate, out toDate);
+                bool hasToDate = DateTime.TryParse(filterOptions.ToDate, out DateTime toDate);
 
                 if (hasToDate)
                 {
@@ -95,9 +93,9 @@ public static class QueryableExtensions
 
                 if (minValue > maxValue && maxValue != default)
                 {
-                    int temp = minValue;
-                    minValue = maxValue;
-                    maxValue = temp;
+                    (maxValue, minValue) = (minValue, maxValue);   // int temp = minValue;
+                                                                    // minValue = maxValue;
+                                                                    // maxValue = temp;
                 }
 
                 if (minValue != default)
