@@ -71,8 +71,8 @@ public class EqualFilter
 public class RangeFilter
 {
     public string PropertyName { get; set; }
-    public int MinValue { get; set; }
-    public int MaxValue { get; set; }
+    public double? MinValue { get; set; }
+    public double? MaxValue { get; set; }
 
     public RangeFilter()
     {

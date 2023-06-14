@@ -9,7 +9,7 @@ public static class QueryableExtensions
     {
         query = query.ApplyEqualFilters(request.EqualFilters);
         query = query.ApplyDateRangeFilter(request.DateRangeFilters);
-        query = query.ApplyPropertyRangesFilter(request.RangeFilters);
+        query = query.ApplyRangeFilter(request.RangeFilters);
         query = query.ApplySorting(request.SortBy, request.SortAscending);
         return query;
     }
@@ -78,7 +78,7 @@ public static class QueryableExtensions
         return query;
     }
 
-    public static IQueryable<T> ApplyPropertyRangesFilter<T>(
+    public static IQueryable<T> ApplyRangeFilter<T>(
         this IQueryable<T> query,
         List<RangeFilter>? rangeFilters
     )
@@ -88,9 +88,9 @@ public static class QueryableExtensions
             foreach (var property in rangeFilters)
             {
                 string propertyName = property.PropertyName;
-                int minValue = property.MinValue;
-                int maxValue = property.MaxValue;
-
+                double minValue = property.MinValue ?? default;
+                double maxValue = property.MaxValue ?? default;
+                
                 if (minValue > maxValue && maxValue != default)
                 {
                     (maxValue, minValue) = (minValue, maxValue);   // int temp = minValue;
