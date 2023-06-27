@@ -66,7 +66,7 @@ public class FarmerRepository : IFarmerRepository
         {
             using (var context = new FarmersContext(_configuration))
             {
-                var crops = await (from crop in context.Crops  select crop.Title ).ToListAsync();
+                var crops = await (from crop in context.Crops select crop.Title).ToListAsync();
                 return crops;
             }
         }
@@ -87,7 +87,7 @@ public class FarmerRepository : IFarmerRepository
                     .Select(x => x.Grade)
                     .Distinct()
                     .ToListAsync();
-                    grades.Sort();
+                grades.Sort();
                 return grades;
             }
         }
@@ -96,7 +96,8 @@ public class FarmerRepository : IFarmerRepository
             throw e;
         }
     }
-     public async Task<List<string?>> GetContainerTypes()
+
+    public async Task<List<string?>> GetContainerTypes()
     {
         try
         {
@@ -107,8 +108,8 @@ public class FarmerRepository : IFarmerRepository
                     .Select(x => x.ContainerType)
                     .Distinct()
                     .ToListAsync();
-                    containerTypes.Sort();
-                 return containerTypes;
+                containerTypes.Sort();
+                return containerTypes;
             }
         }
         catch (Exception e)
