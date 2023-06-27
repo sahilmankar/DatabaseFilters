@@ -1,0 +1,10 @@
+<div>
+    <div *ngIf="filterRequest">
+    <label>Sort By:</label>
+    <select [(ngModel)]="filterRequest.sortBy" (ngModelChange)="onChange()">
+      <option *ngFor="let property of sortByProperties" [value]="property">{{ property }}</option>
+    </select>
+    <label>Sort Ascending:</label>
+    <input type="checkbox" [(ngModel)]="filterRequest.sortAscending" (ngModelChange)="onChange()" >
+  </div>
+</div>

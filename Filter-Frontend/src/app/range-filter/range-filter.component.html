@@ -1,0 +1,19 @@
+
+<div class="property-container">
+  <div class="properties-card">
+    <div *ngFor="let property of rangeProperties; let i = index" (click)="toggleProperty(i)" [ngClass]="{'active': isPropertyExpanded(i)}">
+      {{ property | titlecase }}
+    </div>
+  </div>
+   
+  <div class="expansion-card"> 
+<div *ngFor="let property of rangeProperties; let i = index">
+  <div *ngIf="isPropertyExpanded(i)" style="margin: 20px;">
+    <label> Minvalue </label>
+    <input type="number" [(ngModel)]="filterRequest.rangeFilters[i].minValue" (ngModelChange)="setMaxValue(i)"  />
+    <label> maxValue </label>
+    <input type="number" [(ngModel)]="filterRequest.rangeFilters[i].maxValue" />
+    <button (click)="onSubmit()"  [class.clicked]="isButtonClicked">Go</button>      </div>
+
+  </div>
+</div>

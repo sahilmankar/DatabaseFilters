@@ -1,0 +1,91 @@
+<div>
+  <div class="filter-container">
+    <div class="card">
+      <h3 (click)="onClickEqualFilters()">Equal Filters:</h3>
+      <h3 (click)="onClickDateFilters()">Date Filters:</h3>
+      <h3 (click)="onClickRangeFilters()">Range Filters:</h3>
+      <button class="button" (click)="getCollections()">Send Filters</button>
+      <button  class="button" (click)="clearFilters()">Clear Filters</button>
+      <button  class="button" (click)="onClickCloseFilters()">Close Filters</button>
+
+      <div style="margin: top 10px; "> Active Filters</div>
+
+      <div *ngFor="let property of filterRequest.equalFilters; let i = index">
+        <div *ngIf="filterRequest.equalFilters[i].propertyValues.length>0">
+          <div *ngFor="let value of filterRequest.equalFilters[i].propertyValues; let z=index">
+            <div class="cbtn"  (click)="removeEqualFilterProperty(i, z)">
+              <div class="cbtn1">&#x2716;</div> 
+            <div class="cbtn2"> {{filterRequest.equalFilters[i].propertyName}} : {{ value }}</div>
+          </div>
+      </div>
+        </div>
+      </div>
+
+
+       <div *ngFor="let property of filterRequest.dateRangeFilters; let i = index">
+        <div *ngIf="filterRequest.dateRangeFilters[i].fromDate !== '' || filterRequest.dateRangeFilters[i].toDate !== '' ">
+          <div class="cbtn" (click)="removeFilterProperty('dateRange', i)">
+            <div class="cbtn1">&#x2716;</div> 
+          <div class="cbtn2" >
+            {{ filterRequest.dateRangeFilters[i].propertyName }}
+            {{ filterRequest.dateRangeFilters[i].fromDate ? ' from '+ filterRequest.dateRangeFilters[i].fromDate : ''}}
+            {{ filterRequest.dateRangeFilters[i].toDate ? ' to '+ filterRequest.dateRangeFilters[i].toDate : '' }}
+          </div>
+        </div>
+      </div>
+      </div>
+  
+
+     <div *ngFor="let property of filterRequest.rangeFilters; let i = index">
+        <div *ngIf="filterRequest.rangeFilters[i].minValue !== undefined || filterRequest.rangeFilters[i].maxValue !== undefined ">
+          <div *ngIf=" filterRequest.rangeFilters[i].minValue !== null || filterRequest.rangeFilters[i].maxValue !== null">
+            <div class="cbtn" (click)="removeFilterProperty('range', i)">
+              <div class="cbtn1">&#x2716;</div> 
+            <div class="cbtn2" >
+            {{ filterRequest.rangeFilters[i].propertyName }}
+            {{ filterRequest.rangeFilters[i].minValue ?  filterRequest.rangeFilters[i].minValue +' - ' : ' 0 -'}}
+            {{ filterRequest.rangeFilters[i].maxValue ?  filterRequest.rangeFilters[i].maxValue : '' }}
+            </div>
+        </div>
+      </div>
+    </div>
+  </div> 
+  </div>
+  </div>
+
+  <div class="farmer-collections-container">
+    <div class="card">
+      <div *ngIf="equalClickStatus" class="filter-content-top">
+        <div style="text-align: right; ">
+          <button (click)="onClickCloseFilters()">Close Filters</button>
+        </div>
+        <app-equal-filter [filterRequest]="filterRequest" (filterChange)="getCollections()"></app-equal-filter>
+      </div>
+      <div *ngIf="dateClickStatus" class="filter-content-top">
+        <div style="text-align: right; ">
+          <button (click)="onClickCloseFilters()">Close Filters</button>
+        </div>
+        <app-date-filter [filterRequest]="filterRequest" (filterChange)="getCollections()"></app-date-filter>
+      </div>
+      <div *ngIf="rangeClickStatus" class="filter-content-top">
+        <div style="text-align: right; ">
+          <button (click)="onClickCloseFilters()">Close Filters</button>
+        </div>
+        <app-range-filter [filterRequest]="filterRequest" (filterChange)="getCollections()"></app-range-filter>
+      </div>
+
+      <div style="text-align: right; margin-top: 20px;">
+        <app-sort-by [filterRequest]="filterRequest" (filterChange)="getCollections()"></app-sort-by>
+      </div>
+
+      <app-farmer-collection-list [farmerCollections]="farmerCollections"></app-farmer-collection-list>
+
+      <div class="page-numbers-container">
+        <button *ngFor="let pageNumber of pageNumbers" (click)="onPageClick(pageNumber)"
+          [ngClass]="{'current-page':currentPage===pageNumber}">
+          {{ pageNumber }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+<h2>Farmer Collections</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Collection ID</th>
+      <th>Crop</th>
+      <th>Grade</th>
+      <th>Container Type</th>
+      <th>Quantity</th>
+      <th>Total Weight</th>
+      <th>Tare Weight</th>
+      <th>Net Weight</th>
+      <th>Rate Per Kg</th>
+      <th>Amount</th>
+      <th>Collection Date</th>
+      <!-- <th>Billing ID</th> -->
+      <th>Labour Charges</th>
+      <th>Total Amount</th>
+      <th>Billing Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let farmerCollection of farmerCollections">
+      <td>{{ farmerCollection.collectionId }}</td>
+      <td>{{ farmerCollection.crop }}</td>
+      <td>{{ farmerCollection.grade }}</td>
+      <td>{{ farmerCollection.containerType }}</td>
+      <td>{{ farmerCollection.quantity }}</td>
+      <td>{{ farmerCollection.totalWeight }}</td>
+      <td>{{ farmerCollection.tareWeight }}</td>
+      <td>{{ farmerCollection.netWeight }}</td>
+      <td>{{ farmerCollection.ratePerKg }}</td>
+      <td>{{ farmerCollection.amount }}</td>
+      <td>{{ farmerCollection.collectionDate | date }}</td>
+      <!-- <td>{{ farmerCollection.billId }}</td> -->
+      <td>{{ farmerCollection.labourCharges }}</td>
+      <td>{{ farmerCollection.totalAmount }}</td>
+      <td>{{ farmerCollection.billingDate | date }}</td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,18 @@
+<div class="property-container">
+  <div class="properties-card">
+    <div *ngFor="let property of dateProperties; let i = index" (click)="toggleProperty(i)" [ngClass]="{'active': isPropertyExpanded(i)}">
+      {{ property | titlecase }}
+    </div>
+  </div>
+  
+  <div class="expansion-card">
+    <div *ngFor="let property of dateProperties; let i = index">
+      <div *ngIf="isPropertyExpanded(i)" style="margin: 20px;">
+        <label>From </label>
+        <input type="date" [(ngModel)]="filterRequest.dateRangeFilters[i].fromDate" (change)="updateToDate(i)" />
+        <label>To </label>
+        <input type="date" [(ngModel)]="filterRequest.dateRangeFilters[i].toDate"  />
+        <button (click)="onSubmit()"  [class.clicked]="isButtonClicked">Go</button>      </div>
+    </div>
+    </div>
+  
