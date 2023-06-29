@@ -24,19 +24,17 @@ export class EqualFilterComponent implements OnInit {
   // ["bags", "lenobags", "crates"]
   constructor(private filterservice: FiltersService) { }
   ngOnInit(): void {
-    const initializationStatus = sessionStorage.getItem('equalFilterInitializationDone');
-    if (initializationStatus === 'true') {
-      this.initializationDone = true;
-    }
+   
     this.filterservice.getCategorizedProperties().subscribe((response) => {
       this.equalProperties = response.equalProperties
       this.equalProperties= this.equalProperties.map(item => {
         return { name:item, expanded: false };
       });
       if (!this.initializationDone) {
+        if(!this.doesPreviousRequestContainsEqualProperties()){
         this.initializeEqualFilters();
+        }
         this.initializationDone = true;
-        sessionStorage.setItem('equalFilterInitializationDone', 'true');
       }
       this.toggleProperty(0);
     });
@@ -93,11 +91,17 @@ export class EqualFilterComponent implements OnInit {
     return this.selectedPropertyIndex === index;
   }
 
-  // removing  session data of initalize Filter
-  @HostListener('window:beforeunload', ['$event'])
-  onBeforeUnload(): void {
-    sessionStorage.removeItem('dateFilterInitializationDone');
-    sessionStorage.removeItem('equalFilterInitializationDone');
-    sessionStorage.removeItem('rangeFilterInitializationDone');
+  doesPreviousRequestContainsEqualProperties():boolean{
+    const prevFilterRequest= sessionStorage.getItem("prevFilterRequest");
+    if(prevFilterRequest!=null){
+     const filterRequest:FilterRequest=JSON.parse(prevFilterRequest);
+     return filterRequest.equalFilters.length > 0
+    }
+    return false;
   }
+
+  // removing  session data of initalize Filter
+  // @HostListener('window:beforeunload', ['$event'])
+  // onBeforeUnload(): void {
+  // }
 }

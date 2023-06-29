@@ -19,17 +19,15 @@ export class DateFilterComponent {
 
   constructor( private filterservice: FiltersService) { }
   ngOnInit(): void {
-    const initializationStatus = sessionStorage.getItem('dateFilterInitializationDone');
-    if (initializationStatus === 'true') {
-      this.initializationDone = true;
-    }
+    
     //fetching property types
     this.filterservice.getCategorizedProperties().subscribe((response) => {
       this.dateProperties = response.dateProperties;
       if (!this.initializationDone) {
+        if(!this.doesPreviousRequestContainsDateProperties()){
         this.initializeDateFilters();
+        }
         this.initializationDone = true;
-        sessionStorage.setItem('dateFilterInitializationDone', 'true');
       }
     });
   }
@@ -68,11 +66,20 @@ export class DateFilterComponent {
     return this.expandedPropertyIndex === index;
   }
 
-  @HostListener('window:beforeunload', ['$event'])
-  onBeforeUnload(): void {
-    sessionStorage.removeItem('dateFilterInitializationDone');
-    sessionStorage.removeItem('equalFilterInitializationDone');
-    sessionStorage.removeItem('rangeFilterInitializationDone');
+  doesPreviousRequestContainsDateProperties():boolean{
+    const prevFilterRequest= sessionStorage.getItem("prevFilterRequest");
+    if(prevFilterRequest!=null){
+     const filterRequest:FilterRequest=JSON.parse(prevFilterRequest);
+     return filterRequest.dateRangeFilters.length > 0
+    }
+    return false;
+  }
 
-}
+//   @HostListener('window:beforeunload', ['$event'])
+//   onBeforeUnload(): void {
+//     sessionStorage.removeItem('dateFilterInitializationDone');
+//     sessionStorage.removeItem('equalFilterInitializationDone');
+//     sessionStorage.removeItem('rangeFilterInitializationDone');
+
+// }
 }

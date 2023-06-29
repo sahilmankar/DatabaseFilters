@@ -19,17 +19,15 @@ export class RangeFilterComponent implements OnInit {
   constructor( private filterservice: FiltersService) { }
 
   ngOnInit(): void {
-    const initializationStatus = sessionStorage.getItem('rangeFilterInitializationDone');
-    if (initializationStatus === 'true') {
-      this.initializationDone = true;
-    }
+   
 
    this.filterservice.getCategorizedProperties().subscribe((response) => {
       this.rangeProperties = response.rangeProperties;
       if (!this.initializationDone) {
+        if(!this.doesPreviousRequestContainsRangeProperties()){
         this.initializeRangeFilters();
+        }
         this.initializationDone = true;
-        sessionStorage.setItem('rangeFilterInitializationDone', 'true');
       }
     });
   }
@@ -63,10 +61,13 @@ export class RangeFilterComponent implements OnInit {
     return this.expandedPropertyIndex === index;
   }
 
-  @HostListener('window:beforeunload', ['$event'])
-  onBeforeUnload(): void {
-    sessionStorage.removeItem('dateFilterInitializationDone');
-    sessionStorage.removeItem('equalFilterInitializationDone');
-    sessionStorage.removeItem('rangeFilterInitializationDone');
+  doesPreviousRequestContainsRangeProperties():boolean{
+    const prevFilterRequest= sessionStorage.getItem("prevFilterRequest");
+    if(prevFilterRequest!=null){
+     const filterRequest:FilterRequest=JSON.parse(prevFilterRequest);
+     return filterRequest.rangeFilters.length > 0
+    }
+    return false;
   }
+
 }

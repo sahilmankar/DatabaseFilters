@@ -32,6 +32,10 @@ export class FilterTestComponent implements OnInit {
  
 
   ngOnInit(): void {
+   const prevFilterRequest= sessionStorage.getItem("prevFilterRequest");
+   if(prevFilterRequest!=null){
+    this.filterRequest=JSON.parse(prevFilterRequest);
+   }
     this.getCollections();
   }
 
@@ -60,6 +64,14 @@ export class FilterTestComponent implements OnInit {
 
 
   clearFilters() {
+     this.filterRequest={
+      equalFilters: [],
+      rangeFilters: [],
+      dateRangeFilters: [],
+      sortBy: undefined,
+      sortAscending: false
+    }; 
+    this.getCollections();
     window.location.reload();
   }
 
@@ -91,17 +103,18 @@ export class FilterTestComponent implements OnInit {
 
 
   getCollections() {
+    if(this.isFilterRequestChanged(this.filterRequest)){
+      this.pageNumber=1;
+      this.currentPage=1;
+    }
+    sessionStorage.setItem("prevFilterRequest",JSON.stringify(this.filterRequest));
+
     var filterRequest = this.removeDefaultValues(this.filterRequest);
     console.log("🚀 ~ getCollections ~ filterrequest:", filterRequest);
     console.log(this.pageNumber);
 
-    if(this.isFilterRequestChanged(filterRequest)){
-      this.pageNumber=1;
-      this.currentPage=1;
-    }
 
-    sessionStorage.setItem("prevFilterRequest",JSON.stringify(filterRequest));
-    console.log(JSON.stringify(filterRequest))
+    // console.log(JSON.stringify(filterRequest))
     this.filterservice.sendFilterRequest(filterRequest, this.pageNumber)
       .subscribe((response: HttpResponse<any[]>) => {
         console.log('Filter request sent successfully:', response.body);
@@ -158,12 +171,6 @@ export class FilterTestComponent implements OnInit {
     this.getCollections();
   }
 
-  @HostListener('window:beforeunload', ['$event'])
-  onBeforeUnload(): void {
-    sessionStorage.removeItem('dateFilterInitializationDone');
-    sessionStorage.removeItem('equalFilterInitializationDone');
-    sessionStorage.removeItem('rangeFilterInitializationDone');
-  }
 }
 
 
