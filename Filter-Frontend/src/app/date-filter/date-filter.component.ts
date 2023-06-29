@@ -21,8 +21,8 @@ export class DateFilterComponent {
   ngOnInit(): void {
     
     //fetching property types
-    this.filterservice.getCategorizedProperties().subscribe((response) => {
-      this.dateProperties = response.dateProperties;
+    this.filterservice.getDateRangeProperties().subscribe((response) => {
+      this.dateProperties = response;
       if (!this.initializationDone) {
         if(!this.doesPreviousRequestContainsDateProperties()){
         this.initializeDateFilters();

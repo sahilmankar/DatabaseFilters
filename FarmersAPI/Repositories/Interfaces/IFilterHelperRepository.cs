@@ -2,8 +2,10 @@ using FarmersAPI.Models;
 
 namespace FarmersAPI.Repositories.Interfaces;
 
-public interface IFilterHelperRepository
+public interface IFilterHelperRepository<T>
 {
-    PropertyCategorization GetPropertyCategorization();
     List<string> GetPropertyNames();
+    List<string> GetEqualProperties();
+    List<string> GetRangeProperties();
+    List<string> GetDateRangeProperties();
 }

@@ -8,16 +8,11 @@ namespace FarmersAPI.Controllers
     [Route("/api/[controller]")]
     public class FilterHelperController : ControllerBase
     {
-        private readonly IFilterHelperService _srv;
-        public FilterHelperController(IFilterHelperService srv)
+        private readonly IFilterHelperService<FarmerCollectionDTO> _srv;
+
+        public FilterHelperController(IFilterHelperService<FarmerCollectionDTO> srv)
         {
             _srv = srv;
-        }
-
-        [HttpGet("categorizedProperties")]
-        public PropertyCategorization GetPropertyCategorization()
-        {
-            return _srv.GetPropertyCategorization();
         }
 
         [HttpGet("getpropertynames")]
@@ -25,6 +20,23 @@ namespace FarmersAPI.Controllers
         {
             return _srv.GetPropertyNames();
         }
-        
+
+        [HttpGet("getequalproperties")]
+        public List<string> GetEqualProperties()
+        {
+            return _srv.GetEqualProperties();
+        }
+
+        [HttpGet("getrangeproperties")]
+        public List<string> GetRangeProperties()
+        {
+            return _srv.GetRangeProperties();
+        }
+
+        [HttpGet("getdaterangeproperties")]
+        public List<string> GetDateRangeProperties()
+        {
+            return _srv.GetDateRangeProperties();
+        }
     }
 }

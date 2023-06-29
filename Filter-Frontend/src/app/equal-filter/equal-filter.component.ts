@@ -25,8 +25,8 @@ export class EqualFilterComponent implements OnInit {
   constructor(private filterservice: FiltersService) { }
   ngOnInit(): void {
    
-    this.filterservice.getCategorizedProperties().subscribe((response) => {
-      this.equalProperties = response.equalProperties
+    this.filterservice.getEqualProperties().subscribe((response) => {
+      this.equalProperties = response
       this.equalProperties= this.equalProperties.map(item => {
         return { name:item, expanded: false };
       });

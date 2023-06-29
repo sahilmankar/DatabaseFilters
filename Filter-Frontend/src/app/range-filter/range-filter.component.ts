@@ -21,8 +21,8 @@ export class RangeFilterComponent implements OnInit {
   ngOnInit(): void {
    
 
-   this.filterservice.getCategorizedProperties().subscribe((response) => {
-      this.rangeProperties = response.rangeProperties;
+   this.filterservice.getRangeProperties().subscribe((response) => {
+      this.rangeProperties = response;
       if (!this.initializationDone) {
         if(!this.doesPreviousRequestContainsRangeProperties()){
         this.initializeRangeFilters();

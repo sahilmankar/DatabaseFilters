@@ -16,7 +16,7 @@ export class SortByComponent {
   constructor( private filterservice: FiltersService) { }
   ngOnInit(): void {
     // fetching all properties for sorting
-    this.filterservice.getProperties().subscribe((response) => {
+    this.filterservice.getAllProperties().subscribe((response) => {
       this.sortByProperties = response;
     });
   }

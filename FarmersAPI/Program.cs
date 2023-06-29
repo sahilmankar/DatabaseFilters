@@ -1,3 +1,4 @@
+using FarmersAPI.Models;
 using FarmersAPI.Repositories;
 using FarmersAPI.Repositories.Interfaces;
 using FarmersAPI.Services;
@@ -11,8 +12,8 @@ builder.Services.AddMemoryCache();
 builder.Services.AddControllers();
 builder.Services.AddTransient<IFarmerRepository,FarmerRepository>();
 builder.Services.AddTransient<IFarmerService,FarmerService>();
-builder.Services.AddTransient<IFilterHelperRepository,FilterHelperRepository>();
-builder.Services.AddTransient<IFilterHelperService,FilterHelperService>();
+builder.Services.AddTransient<IFilterHelperRepository<FarmerCollectionDTO>,FilterHelperRepository<FarmerCollectionDTO>>();
+builder.Services.AddTransient<IFilterHelperService<FarmerCollectionDTO>,FilterHelperService<FarmerCollectionDTO>>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

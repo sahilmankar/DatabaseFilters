@@ -1,61 +1,61 @@
-
+using System.Linq;
 using FarmersAPI.Models;
 using FarmersAPI.Repositories.Interfaces;
 
-namespace FarmersAPI.Repositories;
-
-public class FilterHelperRepository:IFilterHelperRepository
+namespace FarmersAPI.Repositories
 {
-
-   //this will give properties grouped by datatype string,(int or double),DateTime
-    public PropertyCategorization  GetPropertyCategorization()
+    public class FilterHelperRepository<T> : IFilterHelperRepository<T>
     {
-        var categorizedProperties = new PropertyCategorization
+        public List<string> GetPropertyNames()
         {
-            EqualProperties = new List<string>(),
-            RangeProperties = new List<string>(),
-            DateProperties = new List<string>()
-        };
+            var propertyNames = typeof(T)
+                .GetProperties()
+                .Where(property => property.CanRead && property.CanWrite)
+                .Select(property => property.Name)
+                .ToList();
 
-        var farmerCollectionDtoType = typeof(FarmerCollectionDTO);
-        var properties = farmerCollectionDtoType.GetProperties();
+            return propertyNames;
+        }
 
-        foreach (var property in properties)
+        public List<string> GetEqualProperties()
         {
-            // Exclude read-only properties by checking if they have a setter
-            if (property.GetSetMethod() != null)
-            {
-                if (property.PropertyType == typeof(string))
-                {
-                    categorizedProperties.EqualProperties.Add(property.Name);
-                }
-                else if (
-                    property.PropertyType == typeof(int) || property.PropertyType == typeof(double)
+            var propertyNames = typeof(T)
+                .GetProperties()
+                .Where(
+                    property =>
+                        property.GetSetMethod() != null && property.PropertyType == typeof(string)
                 )
-                {
-                    categorizedProperties.RangeProperties.Add(property.Name);
-                }
-                else if (property.PropertyType == typeof(DateTime))
-                {
-                    categorizedProperties.DateProperties.Add(property.Name);
-                }
-            }
-        }
-        return  categorizedProperties;
-    }
+                .Select(property => property.Name)
+                .ToList();
 
-    // It will give all properties of a class -- for choosing sort by property
-    public  List<string> GetPropertyNames()
-    {
-        var propertyNames = new List<string>();
-        var properties = typeof(FarmerCollectionDTO).GetProperties();
-        foreach (var property in properties)
-        {
-            if (property.CanRead && property.CanWrite)
-            {
-                propertyNames.Add(property.Name);
-            }
+            return propertyNames;
         }
-        return propertyNames;
+
+        public List<string> GetRangeProperties()
+        {
+            var propertyNames = typeof(T)
+                .GetProperties()
+                .Where(
+                    property =>
+                        property.GetSetMethod() != null && property.PropertyType == typeof(int)
+                        || property.PropertyType == typeof(double)
+                )
+                .Select(property => property.Name)
+                .ToList();
+            return propertyNames;
+        }
+
+        public List<string> GetDateRangeProperties()
+        {
+            var propertyNames = typeof(T)
+                .GetProperties()
+                .Where(
+                    property =>
+                        property.GetSetMethod() != null && property.PropertyType == typeof(DateTime)
+                )
+                .Select(property => property.Name)
+                .ToList();
+            return propertyNames;
+        }
     }
 }

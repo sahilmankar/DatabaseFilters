@@ -4,21 +4,32 @@ using FarmersAPI.Services.Interfaces;
 
 namespace FarmersAPI.Services;
 
-public class FilterHelperService : IFilterHelperService
+public class FilterHelperService<T> : IFilterHelperService<T>
 {
-    private readonly IFilterHelperRepository _repo;
+    private readonly IFilterHelperRepository<T> _repo;
 
-    public FilterHelperService( IFilterHelperRepository repo)
+    public FilterHelperService(IFilterHelperRepository<T> repo)
     {
         this._repo = repo;
     }
-     public PropertyCategorization GetPropertyCategorization()
+
+    public List<string> GetDateRangeProperties()
     {
-       return _repo.GetPropertyCategorization();
+        return _repo.GetDateRangeProperties();
+    }
+
+    public List<string> GetEqualProperties()
+    {
+        return _repo.GetEqualProperties();
     }
 
     public List<string> GetPropertyNames()
     {
         return _repo.GetPropertyNames();
+    }
+
+    public List<string> GetRangeProperties()
+    {
+        return _repo.GetRangeProperties();
     }
 }

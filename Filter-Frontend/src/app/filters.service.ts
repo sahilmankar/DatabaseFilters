@@ -23,7 +23,7 @@ export class FiltersService {
     return this.http.get<any>(url);
   }
 
-  getProperties(): Observable<any> {
+  getAllProperties(): Observable<any> {
     let url = "http://localhost:5141/api/filterhelper/getpropertynames"
     return this.http.get<any>(url);
   }
@@ -43,4 +43,18 @@ export class FiltersService {
     return this.http.get<any>(url);
   }
 
+  getEqualProperties(): Observable<any>{
+    let url = "http://localhost:5141/api/filterhelper/getequalproperties"
+    return this.http.get<any>(url);
+  }
+
+  getRangeProperties(): Observable<any>{
+    let url = "http://localhost:5141/api/filterhelper/getrangeproperties"
+    return this.http.get<any>(url);
+  }
+
+  getDateRangeProperties(): Observable<any>{
+    let url = "http://localhost:5141/api/filterhelper/getdaterangeproperties"
+    return this.http.get<any>(url);
+  }
 }
