@@ -4,6 +4,7 @@
   <thead>
     <tr>
       <th>Collection ID</th>
+      <th>Farmer Name</th>
       <th>Crop</th>
       <th>Grade</th>
       <th>Container Type</th>
@@ -14,7 +15,6 @@
       <th>Rate Per Kg</th>
       <th>Amount</th>
       <th>Collection Date</th>
-      <!-- <th>Billing ID</th> -->
       <th>Labour Charges</th>
       <th>Total Amount</th>
       <th>Billing Date</th>
@@ -23,6 +23,7 @@
   <tbody>
     <tr *ngFor="let farmerCollection of farmerCollections">
       <td>{{ farmerCollection.collectionId }}</td>
+      <td>{{ farmerCollection.farmerName }}</td>
       <td>{{ farmerCollection.crop }}</td>
       <td>{{ farmerCollection.grade }}</td>
       <td>{{ farmerCollection.containerType }}</td>
@@ -33,7 +34,6 @@
       <td>{{ farmerCollection.ratePerKg }}</td>
       <td>{{ farmerCollection.amount }}</td>
       <td>{{ farmerCollection.collectionDate | date }}</td>
-      <!-- <td>{{ farmerCollection.billId }}</td> -->
       <td>{{ farmerCollection.labourCharges }}</td>
       <td>{{ farmerCollection.totalAmount }}</td>
       <td>{{ farmerCollection.billingDate | date }}</td>

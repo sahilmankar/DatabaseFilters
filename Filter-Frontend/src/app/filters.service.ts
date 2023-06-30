@@ -11,8 +11,15 @@ export class FiltersService {
 
   constructor(private http: HttpClient) { }
 
+  // sendFilterRequest(filterRequest: FilterRequest, pageNumber: number): Observable<any> {
+  //   const apiEndpoint: string = "http://localhost:5141/api/farmers/filter/3";
+  //   const params = new HttpParams().set('pageNumber', pageNumber.toString());
+
+  //   return this.http.post<any[]>(apiEndpoint, filterRequest, { params: params, observe: 'response' });
+  // }
+
   sendFilterRequest(filterRequest: FilterRequest, pageNumber: number): Observable<any> {
-    const apiEndpoint: string = "http://localhost:5141/api/farmers/filter/3";
+    const apiEndpoint: string = "http://localhost:5141/api/farmers/getcollectionswithbilling";
     const params = new HttpParams().set('pageNumber', pageNumber.toString());
 
     return this.http.post<any[]>(apiEndpoint, filterRequest, { params: params, observe: 'response' });

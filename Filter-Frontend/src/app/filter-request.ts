@@ -8,6 +8,7 @@ export class FilterRequest {
        public rangeFilters: RangeFilter[] ,
        public dateRangeFilters: DateRangeFilter[] ,
        public sortBy: string | undefined,
+       public searchString:string | undefined,
        public sortAscending: boolean
     ){}
 }

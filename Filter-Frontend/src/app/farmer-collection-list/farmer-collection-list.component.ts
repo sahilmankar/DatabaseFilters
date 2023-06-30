@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FarmerCollection } from '../farmer-collection';
+import { CollectionBilling } from '../collection-billing';
 
 @Component({
   selector: 'app-farmer-collection-list',
@@ -7,7 +7,7 @@ import { FarmerCollection } from '../farmer-collection';
   styleUrls: ['./farmer-collection-list.component.css']
 })
 export class FarmerCollectionListComponent {
-   @Input()farmerCollections: FarmerCollection[] = [];
+   @Input()farmerCollections: CollectionBilling[] = [];
 
 }
 

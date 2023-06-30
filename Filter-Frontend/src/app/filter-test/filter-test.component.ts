@@ -1,8 +1,8 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
-import { FarmerCollection } from '../farmer-collection';
 import { FiltersService } from '../filters.service';
 import { FilterRequest } from '../filter-request';
+import { CollectionBilling } from '../collection-billing';
 
 @Component({
   selector: 'filter-test',
@@ -11,13 +11,14 @@ import { FilterRequest } from '../filter-request';
 })
 export class FilterTestComponent implements OnInit {
 
-  farmerCollections!: FarmerCollection[];
+  farmerCollections!: CollectionBilling[];
 
   filterRequest: FilterRequest = {
     equalFilters: [],
     rangeFilters: [],
     dateRangeFilters: [],
     sortBy: undefined,
+    searchString: undefined,
     sortAscending: false
   };
   pageNumbers: number[] = [];
@@ -69,6 +70,7 @@ export class FilterTestComponent implements OnInit {
       rangeFilters: [],
       dateRangeFilters: [],
       sortBy: undefined,
+      searchString:undefined,
       sortAscending: false
     }; 
     this.getCollections();
@@ -81,6 +83,7 @@ export class FilterTestComponent implements OnInit {
       rangeFilters: [],
       dateRangeFilters: [],
       sortBy: undefined,
+      searchString:undefined,
       sortAscending: false
     }
     // Filter and assign values to equalFilters
@@ -96,6 +99,7 @@ export class FilterTestComponent implements OnInit {
       (filter) => filter.minValue !== undefined || filter.maxValue !== undefined
     );
     filteredRequest.sortBy = filterRequest.sortBy;
+    filteredRequest.searchString = filterRequest.searchString;
     filteredRequest.sortAscending = filterRequest.sortAscending;
     return filteredRequest;
   }
@@ -136,6 +140,7 @@ export class FilterTestComponent implements OnInit {
         // Handle the error appropriately
       });
   }
+
 
   onPageClick(pageNumber: number) {
     this.pageNumber = pageNumber;

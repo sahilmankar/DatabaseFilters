@@ -10,6 +10,7 @@ import { SortByComponent } from './sort-by/sort-by.component';
 import { EqualFilterComponent } from './equal-filter/equal-filter.component';
 import { DateFilterComponent } from './date-filter/date-filter.component';
 import { RangeFilterComponent } from './range-filter/range-filter.component';
+import { SearchBarComponent } from './search-bar/search-bar.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { RangeFilterComponent } from './range-filter/range-filter.component';
     EqualFilterComponent,
     DateFilterComponent,
     RangeFilterComponent,
+    SearchBarComponent,
   ],
   imports: [
     BrowserModule,

@@ -55,6 +55,7 @@
 
   <div class="farmer-collections-container">
     <div class="card">
+     <app-search-bar [filterRequest]="filterRequest" (filterChange)="getCollections()"></app-search-bar>
       <div *ngIf="equalClickStatus" class="filter-content-top">
         <div style="text-align: right; ">
           <button (click)="onClickCloseFilters()">Close Filters</button>
