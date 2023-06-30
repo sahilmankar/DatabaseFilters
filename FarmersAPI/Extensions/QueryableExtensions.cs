@@ -90,12 +90,12 @@ public static class QueryableExtensions
                 string propertyName = property.PropertyName;
                 double minValue = property.MinValue ?? default;
                 double maxValue = property.MaxValue ?? default;
-                
+
                 if (minValue > maxValue && maxValue != default)
                 {
-                    (maxValue, minValue) = (minValue, maxValue);   // int temp = minValue;
-                                                                    // minValue = maxValue;
-                                                                    // maxValue = temp;
+                    (maxValue, minValue) = (minValue, maxValue); // int temp = minValue;
+                    // minValue = maxValue;
+                    // maxValue = temp;
                 }
 
                 if (minValue != default)
@@ -121,6 +121,21 @@ public static class QueryableExtensions
         if (!string.IsNullOrEmpty(sortBy))
         {
             query = query.OrderBy($"{sortBy} {(sortAscending ? "ascending" : "descending")}");
+        }
+        return query;
+    }
+
+    public static IQueryable<T> ApplySearching<T>(
+        this IQueryable<T> query,
+        string? searchString,
+        string searchProperty
+    )
+    {
+        if (!string.IsNullOrEmpty(searchString))
+        {
+            searchString = searchString.Trim().ToLower().Trim('"');
+            searchProperty = searchProperty.Trim().ToLower();
+            query = query.Where($"{searchProperty}.Contains(@0)", searchString);
         }
         return query;
     }

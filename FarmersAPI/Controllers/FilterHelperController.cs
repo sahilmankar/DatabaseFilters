@@ -8,9 +8,9 @@ namespace FarmersAPI.Controllers
     [Route("/api/[controller]")]
     public class FilterHelperController : ControllerBase
     {
-        private readonly IFilterHelperService<FarmerCollectionDTO> _srv;
+        private readonly IFilterHelperService<CollectionBillingDTO> _srv;
 
-        public FilterHelperController(IFilterHelperService<FarmerCollectionDTO> srv)
+        public FilterHelperController(IFilterHelperService<CollectionBillingDTO> srv)
         {
             _srv = srv;
         }

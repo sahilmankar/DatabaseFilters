@@ -66,4 +66,25 @@ public class FarmerService : IFarmerService
     {
         return await _repo.GetContainerTypes();
     }
+
+    public List<Farmer> GetFarmerByName(string name)
+    {
+       return _repo.GetFarmerByName(name);
+    }
+
+    public PagedList<CollectionBillingDTO>? GetAllCollectionsWithBilling(FilterRequest request, int pageNumber)
+    {
+         string cacheKey =  request.ToString() + "_" + pageNumber;
+        Console.WriteLine(cacheKey);
+        return _cache.GetOrCreate(
+            cacheKey,
+            entry =>
+            {
+                entry.SetAbsoluteExpiration(TimeSpan.FromSeconds(30));
+                Console.WriteLine("--> repo hit");
+                var collecrions = _repo.GetAllCollectionsWithBilling(request, pageNumber);
+                return collecrions;
+            }
+        );
+    }
 }

@@ -120,5 +120,36 @@ namespace FarmersAPI.Controllers
         {
             return await _srv.GetContainerTypes();
         }
+
+        [HttpGet("getfarmerbyname")]
+        public List<Farmer> GetFarmerByName([FromQuery] string name)
+        {
+            System.Console.WriteLine(name);
+            return _srv.GetFarmerByName(name);
+        }
+
+        [HttpPost("getcollectionswithbilling")]
+        public List<CollectionBillingDTO>? GetAllCollectionsWithBilling(
+            [FromBody] FilterRequest request,
+            [FromQuery] int pageNumber
+        )
+        {
+
+            var records =_srv.GetAllCollectionsWithBilling(request, pageNumber);
+            if (records != null)
+            {
+                var metadata = new
+                {
+                    records.TotalCount,
+                    records.CurrentPage,
+                    records.TotalPages,
+                    records.HasNext,
+                    records.HasPrevious
+                };
+                Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+            }
+
+            return records;
+        }
     }
 }

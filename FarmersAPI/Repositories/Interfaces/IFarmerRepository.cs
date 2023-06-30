@@ -17,4 +17,9 @@ public interface IFarmerRepository
     Task<List<string>> GetCrops();
     Task<List<string?>> GetGrades();
     Task<List<string?>> GetContainerTypes();
+    List<Farmer> GetFarmerByName(string name);
+    PagedList<CollectionBillingDTO>? GetAllCollectionsWithBilling(
+        FilterRequest request,
+        int pageNumber
+    );
 }

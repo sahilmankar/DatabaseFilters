@@ -24,6 +24,7 @@ export class FilterTestComponent implements OnInit {
   pageNumbers: number[] = [];
   pageNumber: number = 1;
   currentPage:number=1;
+  totalPages:number=0;
   equalClickStatus:boolean=false;
   dateClickStatus:boolean=false;
   rangeClickStatus:boolean=false;
@@ -131,8 +132,8 @@ export class FilterTestComponent implements OnInit {
           const paginationData = JSON.parse(paginationHeader);
           // console.log(paginationData)
           console.log('Total Pages:', paginationData.TotalPages);
-          const totalPages = paginationData.TotalPages;
-          this.pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
+          this.totalPages = paginationData.TotalPages;
+          this.pageNumbers = Array.from({ length: this.totalPages }, (_, index) => index + 1);
         }
         // Process the response as needed
       }, error => {

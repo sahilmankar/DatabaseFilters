@@ -9,6 +9,7 @@ public class FilterRequest
     public List<RangeFilter>? RangeFilters { get; set; }
     public List<DateRangeFilter>? DateRangeFilters { get; set; }
     public string? SortBy { get; set; }
+    public string? SearchString { get; set; }
 
     [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
     public bool SortAscending { get; set; }
@@ -36,10 +37,14 @@ public class FilterRequest
         {
             stringBuilder.Append(string.Join(", ", DateRangeFilters));
         }
-        stringBuilder.Append("], ");
+        stringBuilder.Append("],");
 
         stringBuilder.Append("SortBy: ");
         stringBuilder.Append(SortBy);
+        stringBuilder.Append(", ");
+
+        stringBuilder.Append("SearchString: ");
+        stringBuilder.Append(SearchString);
         stringBuilder.Append(", ");
 
         stringBuilder.Append("SortAscending: ");

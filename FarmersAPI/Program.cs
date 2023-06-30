@@ -10,10 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors();
 builder.Services.AddMemoryCache();
 builder.Services.AddControllers();
-builder.Services.AddTransient<IFarmerRepository,FarmerRepository>();
-builder.Services.AddTransient<IFarmerService,FarmerService>();
-builder.Services.AddTransient<IFilterHelperRepository<FarmerCollectionDTO>,FilterHelperRepository<FarmerCollectionDTO>>();
-builder.Services.AddTransient<IFilterHelperService<FarmerCollectionDTO>,FilterHelperService<FarmerCollectionDTO>>();
+builder.Services.AddScoped<IFarmerRepository,FarmerRepository>();
+builder.Services.AddScoped<IFarmerService,FarmerService>();
+builder.Services.AddScoped<IFilterHelperRepository<CollectionBillingDTO>,FilterHelperRepository<CollectionBillingDTO>>();
+builder.Services.AddScoped<IFilterHelperService<CollectionBillingDTO>,FilterHelperService<CollectionBillingDTO>>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
