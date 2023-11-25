@@ -1,0 +1,32 @@
+<div *ngIf="employeeProperties">
+    <equal-filter [filterRequest]="filterRequest"  [equalPropertiesDataSources]="equalPropertiesDataSources"
+        (filterChange)="getEmployees()"></equal-filter>
+    <date-filter [filterRequest]="filterRequest" [dateProperties]="employeeProperties.dateRangeProperties "
+        (filterChange)="getEmployees()"></date-filter>
+    <range-filter [filterRequest]="filterRequest" [rangeProperties]="employeeProperties.rangeProperties "
+        (filterChange)="getEmployees()"></range-filter>
+    <sort-filter [filterRequest]="filterRequest" [sortByProperties]="employeeProperties.allProperties "
+        (filterChange)="getEmployees()"> </sort-filter>
+</div>
+<h2>Employee Information</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Department Name</th>
+            <th>Salary</th>
+            <th>Date of Birth</th>
+            <th>Joining Date</th>
+        </tr>
+    </thead>
+    <tbody *ngFor="let employee of employees">
+        <tr>
+            <td>{{employee.name}}</td>
+            <td>{{employee.departmentName}}</td>
+            <td>{{employee.salary |currency:"INR"}}</td>
+            <td>{{employee.dateOfBirth |date}}</td>
+            <td>{{employee.joiningDate|date}}</td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,66 @@
+
+.property-container {
+    display: flex;
+    flex-direction: row;
+  }
+  .properties-card {
+    padding: 10px;
+    width: 120px;
+    height: 150px;
+    border: 1px solid #ccc;
+    border-radius: 5%;
+    margin-right: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  
+  .properties-card div {
+    cursor: pointer;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    padding: 5px;
+  }
+  
+  .properties-card div.active {
+    width: 110px;
+    background-color: rgb(90, 199, 235);
+    color: white;
+  }
+  
+  .expansion-card {
+    display:flex;
+    flex: 1;
+    border: 1px solid #ccc;
+    padding: 10px;
+    height: 150px;
+    overflow-y: auto;
+  background-color: #fff;
+  }
+   .expansion-card label{
+    margin-left: 5px;
+   }
+
+   .expansion-card input{
+    margin-left: 5px;
+   }
+
+   .expansion-card button{
+    margin-left: 5px;
+    padding: 5px 10px;
+     background-color:  rgb(90, 199, 235);
+     color: #fff;
+     border: none;
+     border-radius: 5%;
+     cursor: pointer;
+   }
+
+   .expansion-card button.clicked {
+    background-color: green;
+  }
+
+  .properties-card::-webkit-scrollbar {
+    display: none;
+  }
+
+

@@ -1,0 +1,56 @@
+.property-container {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .property-names-card {
+    padding: 10px;
+    width: 120px;
+    border: 1px solid #ccc;
+    border-radius: 5%;
+    margin-right: 10px;
+  }
+  
+  .expanded-properties-card {
+    position: relative;
+    flex: 1;
+    border: 1px solid #ccc;
+    padding: 10px;
+    height: 150px;
+    overflow-y: auto;
+  }
+  
+  .property-names {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .property-name {
+    cursor: pointer;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    background-color: white;
+    padding: 5px;
+  }
+  
+ 
+  
+  .expanded-content {
+    background-color: white;
+    padding: 10px;
+    margin-bottom: 5px;
+  }
+  
+  .property-values-card {
+    margin-top: 5px;
+  }
+
+  .expanded-properties-card::-webkit-scrollbar {
+    display: none;
+  }
+
+  .property-name.selected {
+    width: 110px;
+    background-color: rgb(90, 199, 235);
+    color: white;
+  }
