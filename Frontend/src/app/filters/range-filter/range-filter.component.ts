@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { FilterRequest } from '../filter-request';
+import { SessionstorageKeys } from '../SessionstorageKeys';
 
 @Component({
   selector: 'range-filter',
@@ -18,11 +19,15 @@ export class RangeFilterComponent {
  
   ngOnChanges(changes: SimpleChanges) {
     if (changes["rangeProperties"].currentValue) {
+      if(!sessionStorage.getItem(SessionstorageKeys.rangefilterintializationdone)==true){
+
       this.initializeRangeFilters();
+      }
     }
   }
 
   initializeRangeFilters() {
+    sessionStorage.setItem(SessionstorageKeys.rangefilterintializationdone,"true");
     this.filterRequest.rangeFilters = this.rangeProperties.map((property) => {
       return {
         propertyName: property,
@@ -32,14 +37,10 @@ export class RangeFilterComponent {
     });
   }
 
-  setMaxValue(index: number) {
-    const minVal = this.filterRequest.rangeFilters[index].minValue;
-    this.filterRequest.rangeFilters[index].maxValue = minVal;
-    console.log(
-      '🚀 ~ setMaxValue ~       this.filterRequest.rangeFilters[index]:',
-      this.filterRequest.rangeFilters[index]
-    );
-  }
+  // setMaxValue(index: number) {
+  //   const minVal = this.filterRequest.rangeFilters[index].minValue;
+  //   this.filterRequest.rangeFilters[index].maxValue = minVal;
+  // }
   onSubmit() {
     this.filterChange.emit();
     this.isButtonClicked = true;

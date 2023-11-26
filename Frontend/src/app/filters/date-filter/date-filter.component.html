@@ -1,20 +1,20 @@
-<div class="property-container">
-    <div class="properties-card">
-        <div *ngFor="let property of dateProperties; let i = index" (click)="toggleProperty(i)"
-            [ngClass]="{'active': isPropertyExpanded(i)}">
+<div class=" row d-flex ">
+    <div class="col-2 p-2  text-center card shadow rounded-3  mx-3">
+        <div class=" btn btn-light  my-1  " *ngFor="let property of dateProperties; let i = index" (click)="toggleProperty(i)"
+            [ngClass]="{'bg-info': isPropertyExpanded(i)}">
             {{ property  }}
         </div>
     </div>
 
-    <div class="expansion-card">
+    <div class="col-9 shadow rounded-3 ">
         <div *ngFor="let property of dateProperties; let i = index">
-            <div *ngIf="isPropertyExpanded(i)" style="margin: 20px;">
-                <label>From </label>
-                <input type="date" [(ngModel)]="filterRequest.dateRangeFilters[i].fromDate"
+            <div *ngIf="isPropertyExpanded(i)" class="m-4" >
+                <label class="mx-2">From: </label>
+                <input type="date" class="form-control-sm"  [(ngModel)]="filterRequest.dateRangeFilters[i].fromDate"
                     (change)="updateToDate(i)" />
-                <label>To </label>
-                <input type="date" [(ngModel)]="filterRequest.dateRangeFilters[i].toDate" />
-                <button (click)="onSubmit()" [class.clicked]="isButtonClicked">Go</button>
+                <label  class="mx-2">To: </label>
+                <input type="date" class="form-control-sm"  [(ngModel)]="filterRequest.dateRangeFilters[i].toDate" />
+                <!-- <button (click)="onSubmit()" [class.clicked]="isButtonClicked">oK</button> -->
             </div>
         </div>
     </div>

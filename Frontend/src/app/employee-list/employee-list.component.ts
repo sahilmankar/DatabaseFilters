@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { EmployeeService } from '../employee-service.service';
 import { Employee } from '../Employee';
 import { CategorizedFilterProperties } from '../filters/CategorizedFilterProperties';
 import { FilterRequest } from '../filters/filter-request';
 import { EqualPropertiesDataSource } from '../equalPropDataSource';
+import { FilterOption } from '../filters/FilterOption';
 
 @Component({
   selector: 'employee-list',
   templateUrl: './employee-list.component.html',
   styleUrls: ['./employee-list.component.css'],
 })
-export class EmployeeListComponent implements OnInit {
+export class EmployeeListComponent implements OnInit, OnDestroy {
   employees: Employee[] = [];
 
   filterRequest: FilterRequest = {
@@ -37,6 +38,11 @@ export class EmployeeListComponent implements OnInit {
       dataStore: [],
     },
   ];
+  FilterOption = FilterOption;
+  selectedOption: FilterOption | null = null;
+  handleOptionSelected(option: FilterOption) {
+    this.selectedOption = option;
+  }
 
   constructor(private empsvc: EmployeeService) {}
 
@@ -50,8 +56,11 @@ export class EmployeeListComponent implements OnInit {
   getEmployees() {
     var fr = this.empsvc.removeDefaultFilterValues(this.filterRequest);
     this.empsvc.getEmployees(fr).subscribe((res) => {
-      console.log('🚀 ~ this.empsvc.getEmployees ~ fr:', fr);
       this.employees = res;
     });
+  }
+
+  ngOnDestroy(): void {
+    sessionStorage.clear();
   }
 }

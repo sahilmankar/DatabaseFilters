@@ -7,6 +7,7 @@ import {
   SimpleChanges,
 } from "@angular/core";
 import { FilterRequest } from "../filter-request";
+import { SessionstorageKeys } from "../SessionstorageKeys";
 
 
 @Component({
@@ -26,11 +27,16 @@ export class DateFilterComponent {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes["dateProperties"].currentValue) {
+      if(!sessionStorage.getItem(SessionstorageKeys.datefilterintializationdone)==true){
+
       this.initializeDateFilters();
     }
   }
+  }
 
   initializeDateFilters() {
+    sessionStorage.setItem(SessionstorageKeys.datefilterintializationdone,"true");
+
     this.filterRequest.dateRangeFilters = this.dateProperties.map(
       (property) => {
         return { propertyName: property, fromDate: "", toDate: "" };

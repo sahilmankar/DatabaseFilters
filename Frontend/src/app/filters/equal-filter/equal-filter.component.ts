@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { FilterRequest } from '../filter-request';
 import { EqualPropertiesDataSource } from 'src/app/equalPropDataSource';
+import { SessionstorageKeys } from '../SessionstorageKeys';
 
 @Component({
   selector: 'equal-filter',
@@ -20,17 +21,19 @@ export class EqualFilterComponent {
   @Input() equalPropertiesDataSources!: EqualPropertiesDataSource[];
   @Output() filterChange = new EventEmitter<void>();
   expandedPropertyIndex: number = 0;
+  initializationDone: boolean = false;
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['equalPropertiesDataSources'].currentValue) {
+      if(!sessionStorage.getItem(SessionstorageKeys.equalfilterintializationdone)==true){
       this.initializeEqualFilters();
-      console.log('hii');
-      this.equalPropertiesDataSources.forEach((item) => {
+        this.equalPropertiesDataSources.forEach((item) => {
         item.fetcher('').subscribe((res) => {
           item.dataStore = res;
         });
       });
     }
+  }
   }
 
   refetchDataStore(index: number) {
@@ -44,6 +47,7 @@ export class EqualFilterComponent {
   }
 
   initializeEqualFilters() {
+    sessionStorage.setItem(SessionstorageKeys.equalfilterintializationdone,"true");
     this.filterRequest.equalFilters = this.equalPropertiesDataSources.map(
       (property) => {
         return { propertyName: property.key, propertyValues: [] };
@@ -71,4 +75,5 @@ export class EqualFilterComponent {
   isPropertyExpanded(index: number): boolean {
     return this.expandedPropertyIndex === index;
   }
+
 }

@@ -1,37 +1,25 @@
-<div class="property-container">
-    <div class="property-names-card">
-        <div class="property-names">
-            <div *ngFor="let property of equalPropertiesDataSources; let i = index">
-                <div class="filter-container">
-                    <div class="property-name" [ngClass]="{'selected': isPropertyExpanded(i)}"
-                        (click)="toggleProperty(i)">{{ property.key }}</div>
-                </div>
-            </div>
-        </div>
+<div class=" row d-flex">
+    <div class="col-2 p-2  text-center card shadow rounded-3  mx-3">
+        <div class=" btn btn-light  my-1  " *ngFor="let property of equalPropertiesDataSources; let i = index"
+            [ngClass]="{'bg-info': isPropertyExpanded(i)}" (click)="toggleProperty(i)">{{ property.key }}</div>
     </div>
 
-    <div class="expanded-properties-card">
-        <div class="expanded-properties">
-            <ng-container *ngFor="let property of equalPropertiesDataSources;let i=index">
-                <div *ngIf="isPropertyExpanded(i)" class="expanded-content">
-                    <div class="property-values-card">
-                        <div>
-                            <input type="text" (input)="refetchDataStore(i)" [placeholder]=" 'Search'+property.key +'...'"
-                                [(ngModel)]="searchString">
-                        </div>
-                        <div *ngFor="let value of equalPropertiesDataSources[i].dataStore">
-                            <label>
-                                <input type="checkbox"
-                                    [checked]="filterRequest.equalFilters[i].propertyValues.includes(value)"
-                                    (change)="onCheckboxChange(value, i)" />
-                                {{ value }}
-                            </label>
-                        </div>
-                    </div>
+    <div class="col-9 shadow rounded-3 ">
+
+        <ng-container *ngFor="let property of equalPropertiesDataSources;let i=index">
+            <div *ngIf="isPropertyExpanded(i)" class="m-4">
+                <div class="mb-2 ">
+                    <input type="text"  class="form-control-sm" (input)="refetchDataStore(i)" [placeholder]=" 'Search '+property.key +'...'"
+                        [(ngModel)]="searchString">
                 </div>
-
-
-            </ng-container>
-        </div>
+                <div *ngFor="let value of equalPropertiesDataSources[i].dataStore">
+                    <label>
+                        <input type="checkbox" [checked]="filterRequest.equalFilters[i].propertyValues.includes(value)"
+                            (change)="onCheckboxChange(value, i)" />
+                        {{ value }}
+                    </label>
+                </div>
+            </div>
+        </ng-container>
     </div>
 </div>

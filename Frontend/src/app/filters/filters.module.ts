@@ -6,6 +6,8 @@ import { RangeFilterComponent } from './range-filter/range-filter.component';
 import { SortFilterComponent } from './sort-filter/sort-filter.component';
 import { SearchFilterComponent } from './search-filter/search-filter.component';
 import { FormsModule } from '@angular/forms';
+import { ActiveFilterComponent } from './active-filter/active-filter.component';
+import { CombinedFiltersComponent } from './combined-filters/combined-filters.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +16,8 @@ import { FormsModule } from '@angular/forms';
     RangeFilterComponent,
     SortFilterComponent,
     SearchFilterComponent,
+    ActiveFilterComponent,
+    CombinedFiltersComponent,
   ],
   imports: [CommonModule, FormsModule],
   exports: [
@@ -21,7 +25,7 @@ import { FormsModule } from '@angular/forms';
     EqualFilterComponent,
     RangeFilterComponent,
     SortFilterComponent,
-    SearchFilterComponent,
+    SearchFilterComponent,ActiveFilterComponent
   ],
 })
 export class FiltersModule {}
