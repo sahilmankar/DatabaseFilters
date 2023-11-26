@@ -28,8 +28,3 @@ To run this project, follow these steps:
 
 - **Pagination**: Implement pagination to manage large datasets efficiently, ensuring optimal performance.
 
-## Conclusion
-
-DatabaseFilters is a robust project that demonstrates the power of combining .NET, MySQL, and Angular to create a feature-rich application. Its flexibility and dynamic filtering capabilities make it a valuable tool for developers working with Entity Framework Core.
-
-Explore the codebase, customize it for your specific needs, and take advantage of the comprehensive filtering and data manipulation capabilities it offers. Happy coding!
