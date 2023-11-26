@@ -1,17 +1,17 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from '../employee-service.service';
 import { Employee } from '../Employee';
 import { CategorizedFilterProperties } from '../filters/CategorizedFilterProperties';
 import { FilterRequest } from '../filters/filter-request';
-import { EqualPropertiesDataSource } from '../equalPropDataSource';
-import { FilterOption } from '../filters/FilterOption';
+import { EqualPropertiesDataSource } from '../filters/EqualPropertiesDataSource';
+import { FilterService } from '../filters/filter.service';
 
 @Component({
   selector: 'employee-list',
   templateUrl: './employee-list.component.html',
   styleUrls: ['./employee-list.component.css'],
 })
-export class EmployeeListComponent implements OnInit, OnDestroy {
+export class EmployeeListComponent implements OnInit {
   employees: Employee[] = [];
 
   filterRequest: FilterRequest = {
@@ -22,9 +22,10 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
     searchString: undefined,
     sortAscending: false,
   };
+
   employeeCategorizedProperties!: CategorizedFilterProperties;
 
-  equalPropertiesDataSources = [
+  equalPropertiesDataSources: EqualPropertiesDataSource[] = [
     {
       key: 'DepartmentName',
       fetcher: (searchString: string) =>
@@ -39,35 +40,26 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
     },
   ];
 
-  FilterOption = FilterOption;
-  selectedOption: FilterOption | null = null;
-  handleOptionSelected(option: FilterOption) {
-    this.selectedOption = option;
-  }
-
-  constructor(private empsvc: EmployeeService) {}
+  constructor(
+    private empsvc: EmployeeService,
+    private filtersvc: FilterService
+  ) {}
 
   ngOnInit(): void {
     this.getEmployees();
     this.empsvc.getCategorizedFilterPropertiesOfEmployee().subscribe((res) => {
       this.employeeCategorizedProperties = res;
+      this.filterRequest = this.filtersvc.populateFilterRequest(
+        this.employeeCategorizedProperties,
+        this.equalPropertiesDataSources
+      );
     });
   }
 
   getEmployees() {
-    var fr = this.empsvc.removeDefaultFilterValues(this.filterRequest);
+    var fr = this.filtersvc.removeDefaultFilterValues(this.filterRequest);
     this.empsvc.getEmployees(fr).subscribe((res) => {
       this.employees = res;
     });
-  }
-
-  @HostListener('window:beforeunload', ['$event'])
-  unloadHandler(event: Event): void {
-    sessionStorage.clear();
-    // Perform cleanup or execute code before the browser is refreshed
-    console.log('Window is about to unload!');
-  }
-  ngOnDestroy(): void {
-    sessionStorage.clear();
   }
 }

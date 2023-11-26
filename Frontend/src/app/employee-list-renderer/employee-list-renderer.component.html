@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Employee Information</h2>
+
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Department Name</th>
+                        <th>Salary</th>
+                        <th>Date of Birth</th>
+                        <th>Joining Date</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let employee of employees">
+                    <tr>
+                        <td>{{employee.name}}</td>
+                        <td>{{employee.departmentName}}</td>
+                        <td>{{employee.salary | currency:"INR"}}</td>
+                        <td>{{employee.dateOfBirth | date}}</td>
+                        <td>{{employee.joiningDate | date}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

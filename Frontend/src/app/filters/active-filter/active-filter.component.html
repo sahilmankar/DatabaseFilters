@@ -1,14 +1,26 @@
 <div class="text-center"> <b> Filters </b></div>
 
 <div class="w-100 mb-2">
-    <button class="w-100 mb-2" (click)="selectOption(FilterOption.Equal)">Equal</button>
-    <button class="w-100 mb-2" (click)="selectOption(FilterOption.Range)">Range</button>
-    <button class="w-100 mb-2" (click)="selectOption(FilterOption.Date)">Date</button>
-    <button class="w-100 mb-2" (click)="selectOption(FilterOption.None)">Close Filters</button>
+    <button
+        [ngClass]="{'btn-primary': selectedOption === FilterOption.Equal, 'btn-light': selectedOption !== FilterOption.Equal}"
+        class="btn w-100 mb-2" (click)="selectOption(FilterOption.Equal)">Equal</button>
+
+    <button
+        [ngClass]="{'btn-primary': selectedOption === FilterOption.Range, 'btn-light': selectedOption !== FilterOption.Range}"
+        class="btn w-100 mb-2" (click)="selectOption(FilterOption.Range)">Range</button>
+
+    <button
+        [ngClass]="{'btn-primary': selectedOption === FilterOption.Date, 'btn-light': selectedOption !== FilterOption.Date}"
+        class="btn w-100 mb-2" (click)="selectOption(FilterOption.Date)">Date</button>
+    <div class="d-flex justify-content-evenly">
+        <button class="btn btn-success mb-2" (click)="sendRequest()">Send</button>
+        <button class="btn btn-secondary mb-2" (click)="selectOption(FilterOption.None)">Close Filters</button>
+    </div>
 </div>
 
 
 <div class="text-center"> <b> Active Filters </b></div>
+<a class=" float-end m-1 " style="cursor: pointer;" (click)="clearFilters()">Clear Filters</a>
 
 <div *ngFor="let property of filterRequest.equalFilters; let i = index">
     <div *ngIf="filterRequest.equalFilters[i].propertyValues.length>0">

@@ -41,31 +41,4 @@ export class EmployeeService {
     );
     return this.http.get<string[]>(url, { params: params });
   }
-
-  removeDefaultFilterValues(filterRequest: FilterRequest): FilterRequest {
-    const filteredRequest: FilterRequest = {
-      equalFilters: [],
-      rangeFilters: [],
-      dateRangeFilters: [],
-      sortBy: undefined,
-      searchString: undefined,
-      sortAscending: false,
-    };
-    // Filter and assign values to equalFilters
-    filteredRequest.equalFilters = filterRequest.equalFilters.filter(
-      (filter) => filter.propertyValues.length > 0
-    );
-    // Filter and assign values to dateRangeFilters
-    filteredRequest.dateRangeFilters = filterRequest.dateRangeFilters.filter(
-      (filter) => filter.fromDate !== '' || filter.toDate !== ''
-    );
-    // Filter and assign values to rangeFilters
-    filteredRequest.rangeFilters = filterRequest.rangeFilters.filter(
-      (filter) => filter.minValue !== undefined || filter.maxValue !== undefined
-    );
-    filteredRequest.sortBy = filterRequest.sortBy;
-    filteredRequest.searchString = filterRequest.searchString;
-    filteredRequest.sortAscending = filterRequest.sortAscending;
-    return filteredRequest;
-  }
 }

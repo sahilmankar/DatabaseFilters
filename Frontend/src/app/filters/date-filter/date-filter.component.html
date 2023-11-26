@@ -13,8 +13,7 @@
                 <input type="date" class="form-control-sm"  [(ngModel)]="filterRequest.dateRangeFilters[i].fromDate"
                     (change)="updateToDate(i)" />
                 <label  class="mx-2">To: </label>
-                <input type="date" class="form-control-sm"  [(ngModel)]="filterRequest.dateRangeFilters[i].toDate" />
-                <!-- <button (click)="onSubmit()" [class.clicked]="isButtonClicked">oK</button> -->
+                <input type="date"  [(ngModel)]="filterRequest.dateRangeFilters[i].toDate" />
             </div>
         </div>
     </div>

@@ -1,20 +1,20 @@
 import {
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
+  OnInit,
   Output,
-  SimpleChanges,
 } from '@angular/core';
 import { FilterRequest } from '../filter-request';
-import { EqualPropertiesDataSource } from 'src/app/equalPropDataSource';
-import { SessionstorageKeys } from '../SessionstorageKeys';
+import { EqualPropertiesDataSource } from 'src/app/filters/EqualPropertiesDataSource';
 
 @Component({
   selector: 'equal-filter',
   templateUrl: './equal-filter.component.html',
   styleUrls: ['./equal-filter.component.css'],
 })
-export class EqualFilterComponent {
+export class EqualFilterComponent implements OnInit {
   searchString: string | undefined;
 
   @Input() filterRequest!: FilterRequest;
@@ -22,17 +22,14 @@ export class EqualFilterComponent {
   @Output() filterChange = new EventEmitter<void>();
   expandedPropertyIndex: number = 0;
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['equalPropertiesDataSources'].currentValue) {
-      if(!sessionStorage.getItem(SessionstorageKeys.equalfilterintializationdone)==true){
-      this.initializeEqualFilters();
-        this.equalPropertiesDataSources.forEach((item) => {
+  ngOnInit() {
+
+      this.equalPropertiesDataSources.forEach((item) => {
         item.fetcher('').subscribe((res) => {
           item.dataStore = res;
         });
       });
-    }
-  }
+
   }
 
   refetchDataStore(index: number) {
@@ -45,14 +42,7 @@ export class EqualFilterComponent {
     }
   }
 
-  initializeEqualFilters() {
-    sessionStorage.setItem(SessionstorageKeys.equalfilterintializationdone,"true");
-    this.filterRequest.equalFilters = this.equalPropertiesDataSources.map(
-      (property) => {
-        return { propertyName: property.key, propertyValues: [] };
-      }
-    );
-  }
+
 
   onCheckboxChange(value: string, index: number) {
     const propertyValues =
@@ -74,5 +64,4 @@ export class EqualFilterComponent {
   isPropertyExpanded(index: number): boolean {
     return this.expandedPropertyIndex === index;
   }
-
 }

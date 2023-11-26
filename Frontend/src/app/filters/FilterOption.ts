@@ -3,4 +3,6 @@ export enum FilterOption {
   Date = 'date',
   Equal = 'equal',
   None = 'none',
+  Send = 'send',
+  Clear = 'clear',
 }

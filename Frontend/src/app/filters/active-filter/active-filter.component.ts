@@ -1,6 +1,16 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { FilterRequest } from '../filter-request';
 import { FilterOption } from '../FilterOption';
+import { Subject } from 'rxjs';
+import { FilterService } from '../filter.service';
 
 @Component({
   selector: 'active-filter',
@@ -11,11 +21,33 @@ export class ActiveFilterComponent {
   @Input() filterRequest!: FilterRequest;
   @Output() filterChange = new EventEmitter<void>();
 
-  @Output() optionSelected = new EventEmitter<FilterOption>();
-  FilterOption= FilterOption ;
+  FilterOption = FilterOption;
+  selectedOption: FilterOption | null = null;
 
+  constructor(private filtersvc: FilterService) {}
+  
   selectOption(option: FilterOption) {
-    this.optionSelected.emit(option);
+    this.selectedOption = option;
+    this.filtersvc.filterOptionSelected$.next(option);
+  }
+
+  sendRequest() {
+    this.filterChange.emit();
+  }
+
+  clearFilters() {
+    this.filterRequest.rangeFilters.forEach((filter) => {
+      filter.maxValue = undefined;
+      filter.minValue = undefined;
+    });
+    this.filterRequest.dateRangeFilters.forEach((filter) => {
+      filter.fromDate = '';
+      filter.toDate = '';
+    });
+    this.filterRequest.equalFilters.forEach((filterValues) => {
+      filterValues.propertyValues = [];
+    });
+    this.filterChange.emit();
   }
 
   removeFilterProperty(filterType: string, index: number) {
