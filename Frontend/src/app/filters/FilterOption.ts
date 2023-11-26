@@ -1,6 +1,6 @@
 export enum FilterOption {
-    Range = 'range',
-    Date = 'date',
-    Equal = 'equal',
-  }
-  
+  Range = 'range',
+  Date = 'date',
+  Equal = 'equal',
+  None = 'none',
+}

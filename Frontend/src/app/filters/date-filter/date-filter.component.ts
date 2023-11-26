@@ -3,7 +3,6 @@ import {
   EventEmitter,
   Input,
   Output,
-  SimpleChange,
   SimpleChanges,
 } from "@angular/core";
 import { FilterRequest } from "../filter-request";

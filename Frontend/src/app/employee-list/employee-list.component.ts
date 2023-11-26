@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { EmployeeService } from '../employee-service.service';
 import { Employee } from '../Employee';
 import { CategorizedFilterProperties } from '../filters/CategorizedFilterProperties';
@@ -22,7 +22,7 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
     searchString: undefined,
     sortAscending: false,
   };
-  employeeProperties!: CategorizedFilterProperties;
+  employeeCategorizedProperties!: CategorizedFilterProperties;
 
   equalPropertiesDataSources = [
     {
@@ -38,6 +38,7 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
       dataStore: [],
     },
   ];
+
   FilterOption = FilterOption;
   selectedOption: FilterOption | null = null;
   handleOptionSelected(option: FilterOption) {
@@ -49,7 +50,7 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getEmployees();
     this.empsvc.getCategorizedFilterPropertiesOfEmployee().subscribe((res) => {
-      this.employeeProperties = res;
+      this.employeeCategorizedProperties = res;
     });
   }
 
@@ -60,6 +61,12 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
     });
   }
 
+  @HostListener('window:beforeunload', ['$event'])
+  unloadHandler(event: Event): void {
+    sessionStorage.clear();
+    // Perform cleanup or execute code before the browser is refreshed
+    console.log('Window is about to unload!');
+  }
   ngOnDestroy(): void {
     sessionStorage.clear();
   }

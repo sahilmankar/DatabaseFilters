@@ -21,7 +21,6 @@ export class EqualFilterComponent {
   @Input() equalPropertiesDataSources!: EqualPropertiesDataSource[];
   @Output() filterChange = new EventEmitter<void>();
   expandedPropertyIndex: number = 0;
-  initializationDone: boolean = false;
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['equalPropertiesDataSources'].currentValue) {

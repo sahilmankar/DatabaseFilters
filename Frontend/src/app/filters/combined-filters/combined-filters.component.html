@@ -1,1 +1,16 @@
-<p>combined-filters works!</p>
+<ng-container *ngIf="selectedOption === FilterOption.Equal">
+    <equal-filter [filterRequest]="filterRequest" [equalPropertiesDataSources]="equalPropertiesDataSources"
+        (filterChange)="onfilterChange()"></equal-filter>
+</ng-container>
+<ng-container *ngIf="selectedOption === FilterOption.Date">
+
+    <date-filter [filterRequest]="filterRequest" [dateProperties]="categorizedProperties.dateRangeProperties "
+        (filterChange)="onfilterChange()"></date-filter>
+</ng-container>
+<ng-container *ngIf="selectedOption === FilterOption.Range">
+
+    <range-filter [filterRequest]="filterRequest" [rangeProperties]="categorizedProperties.rangeProperties "
+        (filterChange)="onfilterChange()"></range-filter>
+</ng-container>
+<sort-filter class="m-4 float-end" [filterRequest]="filterRequest"
+    [sortByProperties]="categorizedProperties.allProperties " (filterChange)="onfilterChange()"> </sort-filter>

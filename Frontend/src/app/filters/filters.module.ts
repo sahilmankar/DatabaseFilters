@@ -25,7 +25,9 @@ import { CombinedFiltersComponent } from './combined-filters/combined-filters.co
     EqualFilterComponent,
     RangeFilterComponent,
     SortFilterComponent,
-    SearchFilterComponent,ActiveFilterComponent
+    SearchFilterComponent,
+    ActiveFilterComponent,
+    CombinedFiltersComponent,
   ],
 })
 export class FiltersModule {}

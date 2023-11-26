@@ -1,11 +1,11 @@
-<div *ngIf="employeeProperties">
-    <div class="row">
-        <div class="col-2 card shadow rounded-3 " style="height: 100vh;">
-            <active-filter [filterRequest]="filterRequest" (filterChange)="getEmployees()"
-                (optionSelected)="handleOptionSelected($event)"></active-filter>
-        </div>
-        <div class="col-10">
-            <ng-container *ngIf="selectedOption === FilterOption.Equal">
+<div *ngIf="employeeCategorizedProperties">
+<div class="row">
+    <div class="col-2 card shadow rounded-3 " style="height: 100vh;">
+        <active-filter [filterRequest]="filterRequest" (filterChange)="getEmployees()"
+            (optionSelected)="handleOptionSelected($event)"></active-filter>
+    </div>
+    <div class="col-10">
+        <!-- <ng-container *ngIf="selectedOption === FilterOption.Equal">
                 <equal-filter [filterRequest]="filterRequest" [equalPropertiesDataSources]="equalPropertiesDataSources"
                     (filterChange)="getEmployees()"></equal-filter>
             </ng-container>
@@ -20,31 +20,34 @@
                     (filterChange)="getEmployees()"></range-filter>
             </ng-container>
             <sort-filter class="m-4 float-end" [filterRequest]="filterRequest"
-                [sortByProperties]="employeeProperties.allProperties " (filterChange)="getEmployees()"> </sort-filter>
+                [sortByProperties]="employeeProperties.allProperties " (filterChange)="getEmployees()"> </sort-filter> -->
 
+        <combined-filters [categorizedProperties]="employeeCategorizedProperties"
+            [equalPropertiesDataSources]="equalPropertiesDataSources" [filterRequest]="filterRequest"
+            [selectedOption]="selectedOption" (filterChange)="getEmployees()"></combined-filters>
 
-            <h2>Employee Information</h2>
+        <h2>Employee Information</h2>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Department Name</th>
-                        <th>Salary</th>
-                        <th>Date of Birth</th>
-                        <th>Joining Date</th>
-                    </tr>
-                </thead>
-                <tbody *ngFor="let employee of employees">
-                    <tr>
-                        <td>{{employee.name}}</td>
-                        <td>{{employee.departmentName}}</td>
-                        <td>{{employee.salary |currency:"INR"}}</td>
-                        <td>{{employee.dateOfBirth |date}}</td>
-                        <td>{{employee.joiningDate|date}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Department Name</th>
+                    <th>Salary</th>
+                    <th>Date of Birth</th>
+                    <th>Joining Date</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let employee of employees">
+                <tr>
+                    <td>{{employee.name}}</td>
+                    <td>{{employee.departmentName}}</td>
+                    <td>{{employee.salary |currency:"INR"}}</td>
+                    <td>{{employee.dateOfBirth |date}}</td>
+                    <td>{{employee.joiningDate|date}}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
+</div>
 </div>
