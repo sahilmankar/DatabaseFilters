@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Employee } from './Employee';
@@ -14,10 +14,13 @@ export class EmployeeService {
   getEmployees(
     filterRequest: FilterRequest,
     pageNumber: number = 1
-  ): Observable<Employee[]> {
+  ): Observable<HttpResponse<Employee[]>> {
+
     let url = 'http://localhost:5069/api/employees';
     const params = new HttpParams().set('pageNumber', pageNumber.toString());
-    return this.http.post<Employee[]>(url, filterRequest, { params: params });
+    return this.http.post<Employee[]>(url, filterRequest, {
+      params: params, observe:'response'
+    });
   }
 
   getCategorizedFilterPropertiesOfEmployee(): Observable<CategorizedFilterProperties> {

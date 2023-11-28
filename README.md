@@ -12,7 +12,7 @@
 
 To run this project, follow these steps:
 
-1. **Import Database Schema**: Import the provided `database.sql` file into your MySQL database. Make sure to configure the database connection details in the `appsettings.json` file.
+1. **Import Database Schema**: Import the `db.sql` file provided in 'EmployeeAPI`  into your MySQL database. Make sure to configure the database connection details in the `appsettings.json` file.
 
 2. **Run .NET API**: Start the .NET API by running the ```dotnet run``` command. Ensure that the API can connect to your MySQL database.
 

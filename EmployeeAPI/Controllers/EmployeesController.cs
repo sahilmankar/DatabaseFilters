@@ -22,7 +22,9 @@ public class EmployeesController : ControllerBase
         [FromQuery] int pageNumber
     )
     {
-        return _repository.GetEmployees(request, pageNumber);
+        var employees = _repository.GetEmployees(request, pageNumber);
+        Response.AddPaginationHeader(employees);
+        return employees;
     }
 
     [HttpGet("proprerties")]
@@ -32,13 +34,13 @@ public class EmployeesController : ControllerBase
     }
 
     [HttpGet("departments/names")]
-    public IEnumerable<string> GetDepartmentNames( [FromQuery] string? searchString = null)
+    public IEnumerable<string> GetDepartmentNames([FromQuery] string? searchString = null)
     {
         return _repository.GetDepartmentNames(searchString);
     }
 
     [HttpGet("names")]
-    public IEnumerable<string> GetEmployeeNames( [FromQuery]string? searchString = null)
+    public IEnumerable<string> GetEmployeeNames([FromQuery] string? searchString = null)
     {
         return _repository.GetEmployeeNames(searchString);
     }

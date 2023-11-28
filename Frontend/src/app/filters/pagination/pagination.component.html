@@ -1,0 +1,4 @@
+<div class="d-flex justify-content-center" *ngIf="paginationData">
+<button class="btn bg-info-subtle mx-3" *ngIf="paginationData.HasPrevious" (click)="onClickPrevious()"> previous</button>
+<button class="btn bg-info-subtle mx-3" *ngIf="paginationData.HasNext" (click)="onClickNext()"> next</button>
+</div>

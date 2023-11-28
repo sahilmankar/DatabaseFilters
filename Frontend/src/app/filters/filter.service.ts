@@ -4,43 +4,55 @@ import { EqualPropertiesDataSource } from './EqualPropertiesDataSource';
 import { FilterRequest } from './filter-request';
 import { Subject } from 'rxjs';
 import { FilterOption } from './FilterOption';
+import { HttpResponse } from '@angular/common/http';
+import { PaginationHeader } from './paginationHeader';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FilterService {
-   filterOptionSelected$ = new Subject<FilterOption>();
-  constructor() { }
+  filterOptionSelected$ = new Subject<FilterOption>();
+  constructor() {}
 
-  populateFilterRequest(employeeCategorizedProperties: CategorizedFilterProperties,equalPropertiesDataSources :EqualPropertiesDataSource[]):FilterRequest {
+  getPaginationHeader(res: HttpResponse<any>) {
+    const paginationHeader = res.headers.get('X-Pagination');
+    if (paginationHeader) {
+      const paginationData: PaginationHeader = JSON.parse(paginationHeader);
+      return paginationData;
+    }
+    return null;
+  }
+
+  populateFilterRequest(
+    employeeCategorizedProperties: CategorizedFilterProperties,
+    equalPropertiesDataSources: EqualPropertiesDataSource[]
+  ): FilterRequest {
     let filterRequest: FilterRequest = {
-       equalFilters: [],
-       rangeFilters: [],
-       dateRangeFilters: [],
-       sortBy: undefined,
-       searchString: undefined,
-       sortAscending: false,
-     };
+      equalFilters: [],
+      rangeFilters: [],
+      dateRangeFilters: [],
+      sortBy: undefined,
+      searchString: undefined,
+      sortAscending: false,
+    };
 
-     filterRequest.dateRangeFilters =
-       employeeCategorizedProperties.dateRangeProperties.map((property) => {
-         return { propertyName: property, fromDate: '', toDate: '' };
-       });
-     filterRequest.equalFilters = equalPropertiesDataSources.map(
-       (property) => {
-         return { propertyName: property.key, propertyValues: [] };
-       }
-     );
-     filterRequest.rangeFilters =
-       employeeCategorizedProperties.rangeProperties.map((property) => {
-         return {
-           propertyName: property,
-           minValue: undefined,
-           maxValue: undefined,
-         };
-       });
-       return filterRequest;
-   }
+    filterRequest.dateRangeFilters =
+      employeeCategorizedProperties.dateRangeProperties.map((property) => {
+        return { propertyName: property, fromDate: '', toDate: '' };
+      });
+    filterRequest.equalFilters = equalPropertiesDataSources.map((property) => {
+      return { propertyName: property.key, propertyValues: [] };
+    });
+    filterRequest.rangeFilters =
+      employeeCategorizedProperties.rangeProperties.map((property) => {
+        return {
+          propertyName: property,
+          minValue: undefined,
+          maxValue: undefined,
+        };
+      });
+    return filterRequest;
+  }
 
   removeDefaultFilterValues(filterRequest: FilterRequest): FilterRequest {
     const filteredRequest: FilterRequest = {

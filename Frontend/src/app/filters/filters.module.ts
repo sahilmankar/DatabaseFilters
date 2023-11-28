@@ -8,6 +8,7 @@ import { SearchFilterComponent } from './search-filter/search-filter.component';
 import { FormsModule } from '@angular/forms';
 import { ActiveFilterComponent } from './active-filter/active-filter.component';
 import { CombinedFiltersComponent } from './combined-filters/combined-filters.component';
+import { PaginationComponent } from './pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { CombinedFiltersComponent } from './combined-filters/combined-filters.co
     SearchFilterComponent,
     ActiveFilterComponent,
     CombinedFiltersComponent,
+    PaginationComponent,
   ],
   imports: [CommonModule, FormsModule],
   exports: [
@@ -28,6 +30,7 @@ import { CombinedFiltersComponent } from './combined-filters/combined-filters.co
     SearchFilterComponent,
     ActiveFilterComponent,
     CombinedFiltersComponent,
+    PaginationComponent
   ],
 })
 export class FiltersModule {}

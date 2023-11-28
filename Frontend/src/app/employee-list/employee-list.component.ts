@@ -5,6 +5,7 @@ import { CategorizedFilterProperties } from '../filters/CategorizedFilterPropert
 import { FilterRequest } from '../filters/filter-request';
 import { EqualPropertiesDataSource } from '../filters/EqualPropertiesDataSource';
 import { FilterService } from '../filters/filter.service';
+import { PaginationHeader } from '../filters/paginationHeader';
 
 @Component({
   selector: 'employee-list',
@@ -22,6 +23,7 @@ export class EmployeeListComponent implements OnInit {
     searchString: undefined,
     sortAscending: false,
   };
+  paginationHeader:PaginationHeader|null=null;
 
   employeeCategorizedProperties!: CategorizedFilterProperties;
 
@@ -39,6 +41,8 @@ export class EmployeeListComponent implements OnInit {
       dataStore: [],
     },
   ];
+  HasNext: any;
+  HasPrevious: any;
 
   constructor(
     private empsvc: EmployeeService,
@@ -56,10 +60,14 @@ export class EmployeeListComponent implements OnInit {
     });
   }
 
-  getEmployees() {
+  getEmployees(pageNumber:number=1) {
     var fr = this.filtersvc.removeDefaultFilterValues(this.filterRequest);
-    this.empsvc.getEmployees(fr).subscribe((res) => {
-      this.employees = res;
+    this.empsvc.getEmployees(fr,pageNumber).subscribe((res) => {
+      this.employees = res.body ?? [];
+      this.paginationHeader= this.filtersvc.getPaginationHeader(res)
     });
+  }
+  onReceivePageNumber(pageNumber:number){
+    this.getEmployees(pageNumber);
   }
 }

@@ -2,7 +2,7 @@ namespace EmployeeAPI.Extensions;
 
 public class PagedList<T> : List<T>
 {
-    private const int pageSize = 20;
+    private const int pageSize = 5;
     public int CurrentPage { get; private set; }
     public int TotalPages { get; private set; }
     public int TotalCount { get; private set; }

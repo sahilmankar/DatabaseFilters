@@ -12,5 +12,7 @@
     <range-filter [filterRequest]="filterRequest" [rangeProperties]="categorizedProperties.rangeProperties "
         (filterChange)="onfilterChange()"></range-filter>
 </ng-container>
-<sort-filter class="m-4 float-end" [filterRequest]="filterRequest"
+<div class=" d-flex justify-content-end mt-2">
+<sort-filter  [filterRequest]="filterRequest"
     [sortByProperties]="categorizedProperties.allProperties " (filterChange)="onfilterChange()"> </sort-filter>
+</div>

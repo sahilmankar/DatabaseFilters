@@ -51,8 +51,8 @@ public static class QueryableExtensions
     }
 
     public static IQueryable<T> ApplyDateRangeFilter<T>(
-        this IQueryable<T> query,
-        List<DateRangeFilter>? dateRangeFilters
+        this  IQueryable<T> query,
+         List<DateRangeFilter>? dateRangeFilters
     )
     {
         if (dateRangeFilters != null && dateRangeFilters.Any())
