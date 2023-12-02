@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EmployeeAPI.Models;
 
+[Table("departments")]
 public class Department
 {
     [Column("id")]

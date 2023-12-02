@@ -1,0 +1,38 @@
+version: '1.0'
+
+services:
+  mysql-server:
+    image: mysql:latest
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: HRM
+      MYSQL_USER: sahil
+      MYSQL_PASSWORD: password
+    ports:
+      - "3310:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./EmployeeAPI/Database:/docker-entrypoint-initdb.d
+    restart: always
+
+  dotnet-employeeapi:
+    build:
+      context: ./EmployeeAPI
+    container_name: dotnet-employeeapi
+    depends_on:
+      - mysql-server
+    environment:
+      ConnectionStrings__mysql: Server=mysql-server;Port=3306;Database=HRM;User=sahil;Password=password;
+    ports:
+      - "5069:5069"
+
+  angular-frontend:
+    build:
+      context: ./Frontend
+    container_name: angular-frontend
+    ports:
+     - "4200:80"
+
+volumes:
+  mysql-data:

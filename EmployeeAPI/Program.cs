@@ -15,6 +15,7 @@ builder.Services.AddDbContext<EmployeeContext>(
             .LogTo(Console.WriteLine, LogLevel.Trace)
             .EnableSensitiveDataLogging()
 );
+Console.WriteLine(builder.Configuration.GetConnectionString("mysql")!);
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
