@@ -16,7 +16,7 @@ import { FilterRequest } from '../filter-request';
 export class DateFilterComponent {
   @Input() filterRequest!: FilterRequest;
   @Input() dateProperties!: string[];
-  @Output() filterChange = new EventEmitter<void>();
+  // @Output() filterChange = new EventEmitter<void>();
   expandedPropertyIndex: number = 0;
 
   updateToDate(index: number) {

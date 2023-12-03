@@ -23,6 +23,7 @@ export class EmployeeListComponent implements OnInit {
     searchString: undefined,
     sortAscending: false,
   };
+
   paginationData:PaginationHeader|null=null;
 
   employeeCategorizedProperties!: CategorizedFilterProperties;
@@ -41,8 +42,7 @@ export class EmployeeListComponent implements OnInit {
       dataStore: [],
     },
   ];
-  HasNext: any;
-  HasPrevious: any;
+
 
   constructor(
     private empsvc: EmployeeService,
@@ -61,13 +61,11 @@ export class EmployeeListComponent implements OnInit {
   }
 
   getEmployees(pageNumber:number=1) {
-    var fr = this.filtersvc.removeDefaultFilterValues(this.filterRequest);
-    this.empsvc.getEmployees(fr,pageNumber).subscribe((res) => {
+    let newfilterreq = this.filtersvc.removeDefaultFilterValues(this.filterRequest);
+    this.empsvc.getEmployees(newfilterreq,pageNumber).subscribe((res) => {
       this.employees = res.body ?? [];
       this.paginationData= this.filtersvc.getPaginationHeader(res)
     });
   }
-  onReceivePageNumber(pageNumber:number){
-    this.getEmployees(pageNumber);
-  }
+
 }

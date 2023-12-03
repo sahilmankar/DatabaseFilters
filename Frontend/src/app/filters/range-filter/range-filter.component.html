@@ -12,7 +12,7 @@
             <div *ngIf="isPropertyExpanded(i)" class="m-4">
                 <label> Minvalue : </label>
                 <input type="number" class="form-control-sm"  [(ngModel)]="filterRequest.rangeFilters[i].minValue" />
-                <label> maxValue : </label>
+                <label> MaxValue : </label>
                 <input type="number" class="form-control-sm"  [(ngModel)]="filterRequest.rangeFilters[i].maxValue" />
                 <!-- <button (click)="onSubmit()" [class.clicked]="isButtonClicked">Go</button> -->
             </div>

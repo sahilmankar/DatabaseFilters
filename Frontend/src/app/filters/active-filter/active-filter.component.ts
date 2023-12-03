@@ -25,7 +25,7 @@ export class ActiveFilterComponent {
   selectedOption: FilterOption | null = null;
 
   constructor(private filtersvc: FilterService) {}
-  
+
   selectOption(option: FilterOption) {
     this.selectedOption = option;
     this.filtersvc.filterOptionSelected$.next(option);
@@ -47,6 +47,9 @@ export class ActiveFilterComponent {
     this.filterRequest.equalFilters.forEach((filterValues) => {
       filterValues.propertyValues = [];
     });
+    this.filterRequest.sortBy = undefined;
+    this.filterRequest.searchString = undefined;
+    this.filterRequest.sortAscending = false;
     this.filterChange.emit();
   }
 

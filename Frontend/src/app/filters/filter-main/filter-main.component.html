@@ -5,19 +5,19 @@
         </div>
         <div class="col-10">
             <ng-container *ngIf="selectedOption === FilterOption.Equal">
-                <equal-filter [filterRequest]="filterRequest" [equalPropertiesDataSources]="equalPropertiesDataSources"
+                <equal-filter [filterRequest]="filterRequest"
+                    [equalPropertiesDataSources]="equalPropertiesDataSources"
                     (filterChange)="onFilterChange()"></equal-filter>
             </ng-container>
             <ng-container *ngIf="selectedOption === FilterOption.Date">
 
                 <date-filter [filterRequest]="filterRequest"
-                    [dateProperties]="categorizedProperties.dateRangeProperties "
-                    (filterChange)="onFilterChange()"></date-filter>
+                    [dateProperties]="categorizedProperties.dateRangeProperties "></date-filter>
             </ng-container>
             <ng-container *ngIf="selectedOption === FilterOption.Range">
 
-                <range-filter [filterRequest]="filterRequest" [rangeProperties]="categorizedProperties.rangeProperties "
-                    (filterChange)="onFilterChange()"></range-filter>
+                <range-filter [filterRequest]="filterRequest"
+                    [rangeProperties]="categorizedProperties.rangeProperties "></range-filter>
             </ng-container>
             <div class=" d-flex justify-content-end mt-2">
                 <sort-filter [filterRequest]="filterRequest" [sortByProperties]="categorizedProperties.allProperties "

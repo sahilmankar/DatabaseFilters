@@ -8,7 +8,7 @@ import { FilterRequest } from '../filter-request';
 })
 export class RangeFilterComponent {
   @Input() filterRequest!: FilterRequest;
-  @Output() filterChange = new EventEmitter<void>();
+  // @Output() filterChange = new EventEmitter<void>();
   @Input() rangeProperties: string[] = [];
   expandedPropertyIndex: number = 0;
 

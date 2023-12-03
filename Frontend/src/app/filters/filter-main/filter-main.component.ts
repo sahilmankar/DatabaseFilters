@@ -19,8 +19,7 @@ export class FilterMainComponent {
   @Input() equalPropertiesDataSources!: EqualPropertiesDataSource[];
   @Input() categorizedProperties!: CategorizedFilterProperties;
   @Input() paginationData: PaginationHeader | null = null;
-  @Output() filterChange = new EventEmitter<void>();
-  @Output() pageChangeEvent = new EventEmitter<number>();
+  @Output() filterChange = new EventEmitter<number>();
 
   FilterOption = FilterOption;
   selectedOption: FilterOption | null = null;
@@ -41,7 +40,7 @@ export class FilterMainComponent {
   }
 
   onReceivePageNumber(page:number){
-    this.pageChangeEvent.emit(page);
+    this.filterChange.emit(page);
   }
 
 }

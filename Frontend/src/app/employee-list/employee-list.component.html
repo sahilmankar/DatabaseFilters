@@ -1,31 +1,8 @@
-<ng-template class="my-4" #emprender>
+<ng-template  #emprender>
     <employee-list-renderer [employees]="employees"></employee-list-renderer>
 </ng-template>
 
 <filter-main [categorizedProperties]="employeeCategorizedProperties" [templateToRender]="emprender"
     [equalPropertiesDataSources]="equalPropertiesDataSources" [filterRequest]="filterRequest"
-    [paginationData]="paginationData" (filterChange)="getEmployees()" (pageChangeEvent)="onReceivePageNumber($event)">
+    [paginationData]="paginationData" (filterChange)="getEmployees($event)">
 </filter-main>
-
-
-
-<!-- <div *ngIf="employeeCategorizedProperties">
-    <div class="row">
-        <div class="col-2 card shadow rounded-3 " style="min-height: 100vh;">
-            <active-filter [filterRequest]="filterRequest" (filterChange)="getEmployees()"></active-filter>
-        </div>
-        <div class="col-10">
-            <combined-filters [categorizedProperties]="employeeCategorizedProperties"
-                [equalPropertiesDataSources]="equalPropertiesDataSources" [filterRequest]="filterRequest"
-                (filterChange)="getEmployees()"></combined-filters>
-            <div class="my-4 ">
-                <employee-list-renderer [employees]="employees"></employee-list-renderer>
-            </div>
-            <div>
-                <pagination [paginationData]="paginationData" (pageChangeEvent)="onReceivePageNumber($event)">
-                </pagination>
-            </div>
-        </div>
-    </div>
-</div> -->
-
