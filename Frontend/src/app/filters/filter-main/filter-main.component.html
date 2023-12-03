@@ -1,0 +1,35 @@
+<div *ngIf="categorizedProperties">
+    <div class="row">
+        <div class="col-2 card shadow rounded-3 " style="min-height: 100vh;">
+            <active-filter [filterRequest]="filterRequest" (filterChange)="onFilterChange()"></active-filter>
+        </div>
+        <div class="col-10">
+            <ng-container *ngIf="selectedOption === FilterOption.Equal">
+                <equal-filter [filterRequest]="filterRequest" [equalPropertiesDataSources]="equalPropertiesDataSources"
+                    (filterChange)="onFilterChange()"></equal-filter>
+            </ng-container>
+            <ng-container *ngIf="selectedOption === FilterOption.Date">
+
+                <date-filter [filterRequest]="filterRequest"
+                    [dateProperties]="categorizedProperties.dateRangeProperties "
+                    (filterChange)="onFilterChange()"></date-filter>
+            </ng-container>
+            <ng-container *ngIf="selectedOption === FilterOption.Range">
+
+                <range-filter [filterRequest]="filterRequest" [rangeProperties]="categorizedProperties.rangeProperties "
+                    (filterChange)="onFilterChange()"></range-filter>
+            </ng-container>
+            <div class=" d-flex justify-content-end mt-2">
+                <sort-filter [filterRequest]="filterRequest" [sortByProperties]="categorizedProperties.allProperties "
+                    (filterChange)="onFilterChange()"> </sort-filter>
+            </div>
+            <div class="my-4 ">
+                <ng-container *ngTemplateOutlet="templateToRender"></ng-container>
+            </div>
+            <div>
+                <pagination [paginationData]="paginationData" (pageChangeEvent)="onReceivePageNumber($event)">
+                </pagination>
+            </div>
+        </div>
+    </div>
+</div>

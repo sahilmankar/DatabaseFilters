@@ -30,7 +30,4 @@ export class PaginationComponent {
     }
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    this.paginationData = changes['paginationData'].currentValue;
-  }
 }

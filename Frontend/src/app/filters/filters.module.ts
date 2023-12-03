@@ -7,8 +7,8 @@ import { SortFilterComponent } from './sort-filter/sort-filter.component';
 import { SearchFilterComponent } from './search-filter/search-filter.component';
 import { FormsModule } from '@angular/forms';
 import { ActiveFilterComponent } from './active-filter/active-filter.component';
-import { CombinedFiltersComponent } from './combined-filters/combined-filters.component';
 import { PaginationComponent } from './pagination/pagination.component';
+import { FilterMainComponent } from './filter-main/filter-main.component';
 
 @NgModule({
   declarations: [
@@ -18,8 +18,8 @@ import { PaginationComponent } from './pagination/pagination.component';
     SortFilterComponent,
     SearchFilterComponent,
     ActiveFilterComponent,
-    CombinedFiltersComponent,
     PaginationComponent,
+    FilterMainComponent,
   ],
   imports: [CommonModule, FormsModule],
   exports: [
@@ -29,8 +29,8 @@ import { PaginationComponent } from './pagination/pagination.component';
     SortFilterComponent,
     SearchFilterComponent,
     ActiveFilterComponent,
-    CombinedFiltersComponent,
-    PaginationComponent
+    PaginationComponent,
+    FilterMainComponent
   ],
 })
 export class FiltersModule {}

@@ -23,7 +23,7 @@ export class EmployeeListComponent implements OnInit {
     searchString: undefined,
     sortAscending: false,
   };
-  paginationHeader:PaginationHeader|null=null;
+  paginationData:PaginationHeader|null=null;
 
   employeeCategorizedProperties!: CategorizedFilterProperties;
 
@@ -64,7 +64,7 @@ export class EmployeeListComponent implements OnInit {
     var fr = this.filtersvc.removeDefaultFilterValues(this.filterRequest);
     this.empsvc.getEmployees(fr,pageNumber).subscribe((res) => {
       this.employees = res.body ?? [];
-      this.paginationHeader= this.filtersvc.getPaginationHeader(res)
+      this.paginationData= this.filtersvc.getPaginationHeader(res)
     });
   }
   onReceivePageNumber(pageNumber:number){
