@@ -8,6 +8,10 @@
 
 3. **Angular 15**: The frontend of the application is developed using Angular 15, a powerful and popular framework for building dynamic and responsive web applications.
 
+## Demo
+https://github.com/sahilmankar/DatabaseFilters/assets/110836726/e475cc99-7d99-47fa-87ae-ad5029f57315
+
+
 ## Getting Started
 
 To run this project, follow these steps:
