@@ -16,16 +16,27 @@ public class EmployeesController : ControllerBase
         _repository = repository;
     }
 
-    [HttpPost]
-    public IEnumerable<EmployeeDetail> GetEmployees(
-        FilterRequest request,
+    [HttpGet]
+    public IEnumerable<EmployeeDetail> GetEmployeesFiltered(
+        [FromQuery] [FilterRequestConvertor] FilterRequest filterRequest,
         [FromQuery] int pageNumber
     )
     {
-        var employees = _repository.GetEmployees(request, pageNumber);
+        PagedList<EmployeeDetail>? employees = _repository.GetEmployees(filterRequest, pageNumber);
         Response.AddPaginationHeader(employees);
         return employees;
     }
+
+    // [HttpPost]
+    // public IEnumerable<EmployeeDetail> GetEmployees(
+    //     FilterRequest request,
+    //     [FromQuery] int pageNumber
+    // )    
+    // {
+    //     var employees = _repository.GetEmployees(request, pageNumber);
+    //     Response.AddPaginationHeader(employees);
+    //     return employees;
+    // }
 
     [HttpGet("proprerties")]
     public FilterPropertiesList GetAllEmployeeProperties()

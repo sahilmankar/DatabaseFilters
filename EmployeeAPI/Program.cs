@@ -12,8 +12,8 @@ builder.Services.AddDbContext<EmployeeContext>(
     (options) =>
         options
             .UseMySQL(builder.Configuration.GetConnectionString("mysql")!)
-            .LogTo(Console.WriteLine, LogLevel.Trace)
-            .EnableSensitiveDataLogging()
+            // .LogTo(Console.WriteLine, LogLevel.Trace)
+            // .EnableSensitiveDataLogging()
 );
 Console.WriteLine(builder.Configuration.GetConnectionString("mysql")!);
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();

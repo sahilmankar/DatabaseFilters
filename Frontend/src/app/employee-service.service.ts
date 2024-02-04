@@ -17,8 +17,10 @@ export class EmployeeService {
   ): Observable<HttpResponse<Employee[]>> {
 
     let url = 'http://localhost:5069/api/employees';
-    const params = new HttpParams().set('pageNumber', pageNumber.toString());
-    return this.http.post<Employee[]>(url, filterRequest, {
+    const params = new HttpParams()
+    .set('filterRequest',JSON.stringify(filterRequest))
+    .set('pageNumber', pageNumber.toString());
+    return this.http.get<Employee[]>(url, {
       params: params, observe:'response'
     });
   }

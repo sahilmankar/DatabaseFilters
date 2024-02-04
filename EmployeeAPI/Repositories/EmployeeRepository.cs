@@ -51,7 +51,7 @@ public class EmployeeRepository : IEmployeeRepository
 
     public PagedList<EmployeeDetail> GetEmployees(FilterRequest request, int pageNumber)
     {
-        var query =
+        IQueryable<EmployeeDetail>? query =
             from emp in _context.Employees
             join dept in _context.Departments on emp.DepartmentId equals dept.Id
             select new EmployeeDetail()
